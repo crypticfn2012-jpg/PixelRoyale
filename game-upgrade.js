@@ -399,7 +399,7 @@
     for (const p of G.P) {
       p.k=0; p.alive=1; p.hp=p.mh=100; p.sh=0; p.med=0; p.shd=0; p.chug=0;
       p.shardType=null; p.shardActiveUntil=0; p.pulseDashes=0; p.buildMode=false;
-      p.x=C+(R()-.5)*500; p.y=C+(R()-.5)*500; p.lx=p.x; p.ly=p.y;
+      const spawn=rouletteSafePoint(p); p.x=spawn.x; p.y=spawn.y; p.lx=p.x; p.ly=p.y; p.rouletteStuck=0;
       p.rouletteRespawnAt=0; rouletteEquip(p,0);
     }
     G.alive=G.P.length;
@@ -429,12 +429,51 @@
     if (rouletteActive && G && G.mode==='roulette') return false;
     return _wantRoulette(b,l);
   };
+
+  /* Roulette movement/spawn safety: clear blocked spawn points and recover stuck fighters. */
+  function rouletteSafePoint(p, preferredAngle) {
+    if (!G) return {x:C,y:C};
+    const tries=28;
+    for(let i=0;i<tries;i++){
+      const a=(preferredAngle==null?R()*Math.PI*2:preferredAngle)+(i?i*2.399963229728653:0);
+      const radius=260+(i%7)*58;
+      const x=C+Math.cos(a)*radius, y=C+Math.sin(a)*radius;
+      // Roulette has no building: remove any wall obstructing the spawn pocket.
+      G.W=G.W.filter(w=>Math.hypot(w.x+w.w/2-x,w.y+w.h/2-y)>115);
+      if(!hit(x,y,22)) return {x,y};
+    }
+    // Last-resort rescue: clear the immediate area and use a known central position.
+    G.W=G.W.filter(w=>Math.hypot(w.x+w.w/2-C,w.y+w.h/2-C)>190);
+    return {x:C,y:C};
+  }
+  const _mvRoulette = mv;
+  mv = function(p,dx,dy) {
+    if(!rouletteActive||!G||G.mode!=='roulette') return _mvRoulette(p,dx,dy);
+    const ox=p.x, oy=p.y;
+    _mvRoulette(p,dx,dy);
+    const moved=Math.hypot(p.x-ox,p.y-oy);
+    if(moved<.4 && Math.hypot(dx,dy)>.8) p.rouletteStuck=(p.rouletteStuck||0)+Math.min(.05,Math.hypot(dx,dy)/Math.max(1,p.sp||1));
+    else p.rouletteStuck=Math.max(0,(p.rouletteStuck||0)-.12);
+    if((p.rouletteStuck||0)>1.8){
+      const target=p.tg&&p.tg.alive?p.tg:null;
+      const a=target?Math.atan2(p.y-target.y,p.x-target.x):R()*Math.PI*2;
+      const spot=rouletteSafePoint(p,a);
+      p.x=spot.x;p.y=spot.y;p.lx=spot.x;p.ly=spot.y;p.rouletteStuck=0;
+      p.tg=null;p.th=0;p.fl=0;
+    }
+  };
+  const _buildRoulette = build;
+  build = function(p,a) {
+    if(rouletteActive&&G&&G.mode==='roulette') return;
+    return _buildRoulette(p,a);
+  };
+
   const _drawRoulette = draw;
   draw = function() {
     if (rouletteActive && G && G.mode==='roulette' && G.run) {
       for (const p of G.P) if (!p.alive && p.rouletteRespawnAt && G.T>=p.rouletteRespawnAt && !G.rouletteWinner) {
         const a=R()*Math.PI*2, r=220+R()*180;
-        p.x=C+Math.cos(a)*r; p.y=C+Math.sin(a)*r; p.lx=p.x; p.ly=p.y;
+        const spot=rouletteSafePoint(p,a); p.x=spot.x; p.y=spot.y; p.lx=p.x; p.ly=p.y; p.rouletteStuck=0;
         p.hp=100; p.sh=0; p.alive=1; p.rouletteRespawnAt=0; p.fl=0; p.use=0;
       }
       G.alive=G.P.filter(p=>p.alive).length;
