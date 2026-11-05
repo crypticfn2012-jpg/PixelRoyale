@@ -777,6 +777,30 @@ h1 span{color:#edf3fc;text-shadow:none;letter-spacing:.13em;font-size:.72em;marg
 #pc > .row{display:flex;flex-wrap:nowrap;gap:6px;width:100%;max-width:100%;}
 #pc > .row .b{flex:1 1 0;min-width:0;padding:9px 5px;font-size:clamp(9px,1.6vw,12px);letter-spacing:.02em;white-space:nowrap;}
 @media(max-width:380px){#pc > .row{gap:4px}#pc > .row .b{padding:8px 2px;font-size:9px;letter-spacing:0}}
+
+/* CrazyGames iframe fit: compact the menu on short desktop embeds. */
+@media (min-width:600px) and (max-height:520px){
+  #mn{height:100dvh;min-height:0;justify-content:flex-start;overflow-y:auto;overscroll-behavior:contain;gap:5px;padding:46px 12px 8px}
+  #mn:before{height:calc(100dvh - 10px);width:calc(100vw - 16px)}
+  #mn #gameLogo{width:min(250px,34vw);height:clamp(38px,10vh,54px);margin:0 auto}
+  #mn #pvm{display:none}
+  #mn #modeSelect{width:min(520px,72vw);gap:5px}
+  #mn #modeSelect .selected-mode{min-height:48px;padding:6px 10px}
+  #mn #modePicker{gap:5px}
+  #mn #modePicker .mode-option{padding:5px 7px;gap:3px}
+  #mn #modePicker .mode-option img{height:46px}
+  #mn .row{gap:5px;max-width:min(520px,75vw)}
+  #mn .row .b{min-width:0;padding:7px 5px;font-size:9px}
+  #mn .hint{font-size:8px;line-height:1.2;margin:0}
+}
+@media (min-width:600px) and (max-height:420px){
+  #mn{padding-top:40px;gap:3px}
+  #mn #gameLogo{height:36px}
+  #mn #modeSelect .selected-mode{min-height:42px}
+  #mn #modePicker .mode-option img{height:38px}
+  #mn .row .b{padding:5px 4px}
+}
+
 </style><style>
 .mp-actions{width:min(360px,88vw);display:flex;flex-direction:column;gap:7px;margin-top:2px}
 .mp-primary,.mp-secondary{border:1px solid #45617e;border-radius:9px;font:900 11px Inter,"Segoe UI",Arial,sans-serif;letter-spacing:.08em;padding:10px 11px;cursor:pointer}
@@ -1480,6 +1504,22 @@ function syncMobileOrientation(){
   document.documentElement.classList.toggle('mobile-portrait',!!portrait);
 }
 addEventListener('resize',syncMobileOrientation,{passive:true});
+/* Embedded players can change size without a traditional window resize. */
+let gameViewportResizeFrame=0;
+function onGameViewportResize(){
+  if(gameViewportResizeFrame)return;
+  gameViewportResizeFrame=requestAnimationFrame(()=>{
+    gameViewportResizeFrame=0;
+    syncMobileOrientation();
+    if(G&&G.run){const w=Math.max(1,innerWidth),h=Math.max(1,innerHeight);if(G.mode==='box')Z=Math.min(1,w/1320,h/820)}
+  });
+}
+if(typeof ResizeObserver!=='undefined'){
+  const gameViewportObserver=new ResizeObserver(onGameViewportResize);
+  gameViewportObserver.observe(document.documentElement);
+  gameViewportObserver.observe(document.body);
+}
+if(window.visualViewport)visualViewport.addEventListener('resize',onGameViewportResize,{passive:true});
 addEventListener('orientationchange',()=>requestAnimationFrame(syncMobileOrientation));
 const touchPadPointers={move:null,aim:null};
 function bindTouchPad(id,key,kind){
