@@ -498,5 +498,23 @@
     $('hud').classList.add('h');
   };
 
+  /* ---------- Desktop edition reward ---------- */
+  // The Electron launcher adds ?desktop=1. This unlock is stored in the same
+  // local game save used by the desktop app and is not granted on the web build.
+  const isDesktopBuild = new URLSearchParams(location.search).get('desktop') === '1';
+  if (isDesktopBuild) {
+    window.PIXELROYALE_DESKTOP = true;
+    const desktopSkinName = 'Desktop Royal';
+    let desktopSkinIndex = SK.findIndex(x => x[0] === desktopSkinName);
+    if (desktopSkinIndex < 0) {
+      SK.push([desktopSkinName, '#ffc45c', 0]);
+      desktopSkinIndex = SK.length - 1;
+    }
+    S.own = Array.isArray(S.own) ? S.own : [];
+    S.own.length = Math.max(S.own.length, SK.length);
+    S.own[desktopSkinIndex] = 1;
+    save();
+  }
+
   selectMode('br');
 })();

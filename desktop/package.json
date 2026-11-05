@@ -1,0 +1,37 @@
+{
+  "name": "pixelroyale-desktop",
+  "version": "1.0.0",
+  "description": "PixelRoyale portable Windows desktop client",
+  "main": "main.js",
+  "private": true,
+  "scripts": {
+    "start": "electron .",
+    "build:portable": "electron-builder --win portable --x64"
+  },
+  "devDependencies": {
+    "electron": "^35.0.0",
+    "electron-builder": "^26.0.12"
+  },
+  "build": {
+    "appId": "com.pixelroyale.desktop",
+    "productName": "PixelRoyale",
+    "asar": true,
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "package.json"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "portable",
+          "arch": ["x64"]
+        }
+      ],
+      "artifactName": "PixelRoyale-Portable-${version}.${ext}"
+    }
+  }
+}
