@@ -5,12 +5,14 @@
   "main": "main.js",
   "private": true,
   "scripts": {
-    "start": "electron .",
-    "build:portable": "electron-builder --win portable --x64"
+    "start": "node make-icon.js && electron .",
+    "build:portable": "node make-icon.js && electron-builder --win portable --x64"
   },
   "devDependencies": {
     "electron": "^35.0.0",
-    "electron-builder": "^26.0.12"
+    "electron-builder": "^26.0.12",
+    "sharp": "^0.34.5",
+    "png-to-ico": "^2.1.8"
   },
   "build": {
     "appId": "com.pixelroyale.desktop",
@@ -22,13 +24,17 @@
     "files": [
       "main.js",
       "preload.js",
-      "package.json"
+      "package.json",
+      "build/icon.ico"
     ],
     "win": {
+      "icon": "build/icon.ico",
       "target": [
         {
           "target": "portable",
-          "arch": ["x64"]
+          "arch": [
+            "x64"
+          ]
         }
       ],
       "artifactName": "PixelRoyale-Portable-${version}.${ext}"
