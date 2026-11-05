@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+<defs>
+ <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#10234b"/><stop offset=".55" stop-color="#164d83"/><stop offset="1" stop-color="#07152e"/></linearGradient>
+ <radialGradient id="glow"><stop stop-color="#45dfff" stop-opacity=".55"/><stop offset="1" stop-color="#45dfff" stop-opacity="0"/></radialGradient>
+ <linearGradient id="gold" x2="0" y2="1"><stop stop-color="#fff0a2"/><stop offset=".5" stop-color="#ffc044"/><stop offset="1" stop-color="#df741c"/></linearGradient>
+ <pattern id="grid" width="72" height="72" patternUnits="userSpaceOnUse"><path d="M72 0H0V72" fill="none" stroke="#8ac9ff" stroke-opacity=".12" stroke-width="2"/></pattern>
+ <filter id="shadow" x="-30%" y="-30%" width="160%" height="170%"><feDropShadow dx="0" dy="18" stdDeviation="14" flood-color="#020817" flood-opacity=".7"/></filter>
+</defs>
+<rect width="1920" height="1080" fill="url(#bg)"/><rect width="1920" height="1080" fill="url(#grid)"/>
+<circle cx="1470" cy="480" r="580" fill="url(#glow)"/>
+<path d="M0 830 300 650 520 790 760 590 1010 820 1280 610 1510 790 1740 620 1920 730V1080H0Z" fill="#0b1b36" opacity=".7"/>
+<path d="M0 930 260 810 490 910 730 760 970 930 1220 760 1480 910 1700 770 1920 880V1080H0Z" fill="#09152b" opacity=".8"/>
+<g opacity=".5" fill="#54d9ff"><path d="M140 180h120v12H140zM200 140h12v120h-12zM1640 180h150v10h-150zM1700 130h10v120h-10z"/></g>
+<g transform="translate(1290 300)" filter="url(#shadow)">
+ <path d="M0 130 110 0 220 130 110 260Z" fill="#26b8e8" stroke="#b4f4ff" stroke-width="10"/>
+ <path d="M110 0v260M0 130h220" stroke="#0c4a80" stroke-width="8" opacity=".8"/>
+ <path d="M54 130 110 66 166 130 110 194Z" fill="#f4b53f" stroke="#fff0a2" stroke-width="8"/>
+</g>
+<g transform="translate(1020 570)" filter="url(#shadow)">
+ <path d="M0 110 95 0 190 110 95 220Z" fill="#f0a73c" stroke="#fff0a2" stroke-width="9"/>
+ <path d="M95 0v220M0 110h190" stroke="#96521e" stroke-width="8"/>
+</g>
+<g transform="translate(1540 690)" filter="url(#shadow)">
+ <path d="M0 80 70 0 140 80 70 160Z" fill="#f45b9b" stroke="#ffc4e1" stroke-width="8"/>
+</g>
+<g transform="translate(250 310)" filter="url(#shadow)">
+ <path d="M70 100 96 32 153 10 210 32 236 100 220 200 190 252H116L86 200Z" fill="#e8f3ff" stroke="#07152e" stroke-width="18" stroke-linejoin="round"/>
+ <path d="M92 90 110 55 151 39 192 55 211 90 199 146H104Z" fill="#ffbd4b" stroke="#0a2b55" stroke-width="12"/>
+ <path d="M122 96h18v20h-18zM166 96h18v20h-18z" fill="#10264c"/>
+ <path d="M128 139q24 18 48 0" fill="none" stroke="#10264c" stroke-width="9" stroke-linecap="round"/>
+ <path d="M82 166 22 202 40 250 108 222M224 166 284 202 266 250 198 222" fill="#2878bd" stroke="#07152e" stroke-width="15" stroke-linejoin="round"/>
+ <path d="M112 248 95 320 144 332 159 263M190 248 207 320 158 332 143 263" fill="#f2a33a" stroke="#07152e" stroke-width="14" stroke-linejoin="round"/>
+ <path d="M210 50 260 24 294 55 250 86" fill="#1fd0ed" stroke="#07152e" stroke-width="12"/>
+</g>
+<g transform="translate(80 770)"><text x="0" y="0" fill="#7feaff" font-family="Arial,sans-serif" font-size="30" font-weight="900" letter-spacing="12">MULTIPLAYER BATTLE ROYALE</text><text x="0" y="130" fill="url(#gold)" stroke="#653719" stroke-width="3" paint-order="stroke fill" font-family="Impact,Arial Black,sans-serif" font-size="142" font-weight="900" letter-spacing="2">PIXELROYALE</text><text x="8" y="190" fill="#eaf6ff" font-family="Arial,sans-serif" font-size="35" font-weight="800" letter-spacing="13">DROP IN. FIGHT. SURVIVE.</text></g>
+</svg>
