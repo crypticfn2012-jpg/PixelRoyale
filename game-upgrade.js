@@ -516,5 +516,31 @@
     save();
   }
 
+  /* ---------- Windows-themed Desktop Royal skin ---------- */
+  // Give the exclusive desktop skin its own readable Windows-inspired chest emblem.
+  // body() is the shared top-down fighter renderer, so this appears in actual matches.
+  if (isDesktopBuild) {
+    const originalBody = body;
+    body = function (col, hat, ang, gt, fl, rarity) {
+      originalBody(col, hat, ang, gt, fl, rarity);
+      if (S.skin !== desktopSkinIndex) return;
+      cx.save();
+      // Four blue panes with a slight perspective, like the Windows mark.
+      cx.translate(-2.2, 0);
+      cx.rotate(-0.08);
+      cx.fillStyle = 'rgba(8,24,48,.9)';
+      cx.strokeStyle = '#fff2cf';
+      cx.lineWidth = 0.65;
+      cx.beginPath(); cx.roundRect(-4.1, -3.8, 3.55, 3.25, 0.45); cx.fill(); cx.stroke();
+      cx.beginPath(); cx.roundRect(0.35, -3.8, 3.55, 3.25, 0.45); cx.fill(); cx.stroke();
+      cx.beginPath(); cx.roundRect(-4.1, 0.45, 3.55, 3.25, 0.45); cx.fill(); cx.stroke();
+      cx.beginPath(); cx.roundRect(0.35, 0.45, 3.55, 3.25, 0.45); cx.fill(); cx.stroke();
+      cx.fillStyle = '#27a8ff';
+      cx.fillRect(-3.65, -3.35, 2.65, 2.35); cx.fillRect(0.8, -3.35, 2.65, 2.35);
+      cx.fillRect(-3.65, 0.9, 2.65, 2.35); cx.fillRect(0.8, 0.9, 2.65, 2.35);
+      cx.restore();
+    };
+  }
+
   selectMode('br');
 })();
