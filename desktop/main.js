@@ -2,6 +2,7 @@ const { app, BrowserWindow, Menu, shell } = require("electron");
 const path = require("node:path");
 
 const GAME_URL = "https://crypticfn2012-jpg.github.io/PixelRoyale/?desktop=1";
+const APP_ICON = path.join(__dirname, "build", "icon.ico");
 let win;
 
 function createWindow() {
@@ -13,6 +14,7 @@ function createWindow() {
     show: false,
     backgroundColor: "#101a33",
     title: "PixelRoyale",
+    icon: APP_ICON,
     autoHideMenuBar: true,
     webPreferences: {
       preload: path.join(__dirname, "preload.js"),
