@@ -37,7 +37,7 @@ function startGameServer() {
         return;
       }
 
-      const relativePath = pathname === "/" ? "index.html" : pathname.replace(/^\\/+/, "");
+      const relativePath = pathname === "/" ? "index.html" : pathname.replace(/^\/+/, "");
       const filePath = path.resolve(GAME_DIR, relativePath);
       if (filePath !== GAME_DIR && !filePath.startsWith(GAME_DIR + path.sep)) {
         res.writeHead(403).end("Forbidden");
