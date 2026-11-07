@@ -44,19 +44,27 @@ function startGameServer() {
         return;
       }
 
+      if (req.method !== "GET" && req.method !== "HEAD") {
+        res.writeHead(405, { "Allow": "GET, HEAD" }).end();
+        return;
+      }
+
       fs.stat(filePath, (error, stat) => {
-        if (error || !stat.isFile()) {
-          res.writeHead(404, { "Cache-Control": "no-store" }).end("Not found");
-          return;
-        }
-        res.writeHead(200, {
-          "Content-Type": MIME_TYPES[path.extname(filePath).toLowerCase()] || "application/octet-stream",
-          "Content-Length": stat.size,
-          "Cache-Control": "no-cache",
-          "X-Content-Type-Options": "nosniff"
+        const actualFile = !error && stat.isDirectory() ? path.join(filePath, "index.html") : filePath;
+        fs.stat(actualFile, (fileError, fileStat) => {
+          if (fileError || !fileStat.isFile()) {
+            res.writeHead(404, { "Cache-Control": "no-store" }).end("Not found");
+            return;
+          }
+          res.writeHead(200, {
+            "Content-Type": MIME_TYPES[path.extname(actualFile).toLowerCase()] || "application/octet-stream",
+            "Content-Length": fileStat.size,
+            "Cache-Control": "no-cache",
+            "X-Content-Type-Options": "nosniff"
+          });
+          if (req.method === "HEAD") res.end();
+          else fs.createReadStream(actualFile).pipe(res);
         });
-        if (req.method === "HEAD") res.end();
-        else fs.createReadStream(filePath).pipe(res);
       });
     });
 
