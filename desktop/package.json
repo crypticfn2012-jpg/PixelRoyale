@@ -1,12 +1,12 @@
 {
   "name": "pixelroyale-desktop",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "PixelRoyale portable Windows desktop client",
   "main": "main.js",
   "private": true,
   "scripts": {
-    "start": "node make-icon.js && electron .",
-    "build:portable": "node make-icon.js && electron-builder --win portable --x64"
+    "start": "node make-icon.js && node prepare-game.js && electron .",
+    "build:portable": "node make-icon.js && node prepare-game.js && electron-builder --win portable --x64"
   },
   "devDependencies": {
     "electron": "^35.0.0",
@@ -25,7 +25,8 @@
       "main.js",
       "preload.js",
       "package.json",
-      "build/icon.ico"
+      "build/icon.ico",
+      "game/**/*"
     ],
     "win": {
       "icon": "build/icon.ico",
