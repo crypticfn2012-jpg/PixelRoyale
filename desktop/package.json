@@ -39,6 +39,7 @@
         }
       ],
       "artifactName": "PixelRoyale-Portable-${version}.${ext}"
-    }
+    },
+    "compression": "store"
   }
 }
