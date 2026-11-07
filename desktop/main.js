@@ -1,7 +1,12 @@
 const { app, BrowserWindow, Menu, shell } = require("electron");
 const path = require("node:path");
 
-const GAME_URL = "https://crypticfn2012-jpg.github.io/PixelRoyale/?desktop=1";
+const GAME_FILE = path.join(__dirname, "game", "index.html");
+const WEBSITE_URL = "https://crypticfn2012-jpg.github.io/PixelRoyale/";
+function loadGame() {
+  if (!win) return;
+  win.loadFile(GAME_FILE, { query: { desktop: "1" } });
+}
 const APP_ICON = path.join(__dirname, "build", "icon.ico");
 let win;
 
@@ -26,7 +31,7 @@ function createWindow() {
   });
 
   win.once("ready-to-show", () => win.show());
-  win.loadURL(GAME_URL);
+  loadGame();
 
   win.webContents.setWindowOpenHandler(({ url }) => {
     if (url.startsWith("https://") || url.startsWith("http://")) shell.openExternal(url);
@@ -51,7 +56,7 @@ function buildMenu() {
     {
       label: "PixelRoyale",
       submenu: [
-        { label: "Reload game", accelerator: "Ctrl+R", click: () => win && win.loadURL(GAME_URL) },
+        { label: "Reload game", accelerator: "Ctrl+R", click: () => win && loadGame() },
         { type: "separator" },
         { label: "Quit", accelerator: "Alt+F4", role: "quit" }
       ]
@@ -83,7 +88,7 @@ function buildMenu() {
       label: "Help",
       submenu: [
         { label: "PixelRoyale on itch.io", click: () => shell.openExternal("https://itch.io/") },
-        { label: "Game website", click: () => shell.openExternal("https://crypticfn2012-jpg.github.io/PixelRoyale/") }
+        { label: "Game website", click: () => shell.openExternal(WEBSITE_URL) }
       ]
     }
   ];
