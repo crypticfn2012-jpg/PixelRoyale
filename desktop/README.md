@@ -12,7 +12,7 @@ This folder packages PixelRoyale in an Electron desktop window. It uses the exis
    `npm install`
 5. Build the portable executable:
    `npm run build:portable`
-6. Find the output in `desktop\dist\PixelRoyale-Portable-1.0.2.exe`.
+6. Find the output in `dist\PixelRoyale-Portable-1.0.2.exe`.
 
 The portable EXE does not need an installer. You can upload that EXE to itch.io as a Windows download.
 
