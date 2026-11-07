@@ -1,6 +1,6 @@
 {
   "name": "pixelroyale-desktop",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "PixelRoyale portable Windows desktop client",
   "main": "main.js",
   "private": true,
