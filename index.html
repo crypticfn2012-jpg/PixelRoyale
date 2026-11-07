@@ -1,5 +1,12 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><title>PixelRoyale</title>
-<script src="https://sdk.crazygames.com/crazygames-sdk-v3.js"></script>
+<script>
+(function () {
+  var host = location.hostname.toLowerCase();
+  if (host === "crazygames.com" || host.endsWith(".crazygames.com")) {
+    document.write('<script src="https://sdk.crazygames.com/crazygames-sdk-v3.js"><\\/script>');
+  }
+})();
+</script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;user-select:none}
 html,body{width:100%;height:100%;overflow:hidden;background:#101a33;color:#fff;font:700 14px/1.25 "Segoe UI",Arial,sans-serif;letter-spacing:.5px;touch-action:none}
@@ -803,97 +810,6 @@ h1 span{color:#edf3fc;text-shadow:none;letter-spacing:.13em;font-size:.72em;marg
 
 
 
-/* Embedded viewport layout: keep desktop controls desktop-like when a browser
-   or CrazyGames iframe is narrow. Touch layouts remain touch-only. */
-html.compact-embed #mn{
-  height:100dvh;min-height:0;justify-content:flex-start;overflow:hidden;
-  gap:0;padding:0;background:radial-gradient(ellipse at 50% 25%,rgba(49,77,122,.2),transparent 55%);
-}
-html.compact-embed #mn:before{
-  width:min(560px,calc(100vw - 20px));height:calc(100dvh - 16px);
-  max-height:none;border-radius:18px;
-}
-html.compact-embed #mn #pf{
-  top:10px;left:max(10px,calc(50% - 260px));right:auto;
-  max-width:calc(50% - 18px);padding:6px 8px;gap:6px;
-}
-html.compact-embed #mn #pf small{max-width:clamp(60px,14vw,150px)}
-html.compact-embed #mn #top{
-  top:10px;left:auto;right:max(10px,calc(50% - 260px));gap:5px;
-}
-html.compact-embed #mn #cn{padding:7px 9px;font-size:12px}
-html.compact-embed #mn #mu{min-width:0;padding:7px 9px;font-size:10px}
-html.compact-embed #mn>.row{
-  top:56px;left:10px;right:10px;justify-content:center;flex-wrap:nowrap;
-  gap:5px;width:auto;max-width:none;
-}
-html.compact-embed #mn>.row .b{
-  flex:1 1 0;width:auto;min-width:0;max-width:100px;height:46px;
-  padding:4px 3px;font-size:8px;gap:2px;border-radius:9px;
-}
-html.compact-embed #mn>.row .b.menu-nav .menu-icon{width:19px;height:19px;min-width:19px;max-width:19px}
-html.compact-embed #mn>.row .b.menu-nav span{font-size:7px}
-html.compact-embed #mn #gameLogo{
-  position:absolute;top:112px;left:50%;transform:translateX(-50%);
-  width:min(230px,48vw);height:clamp(42px,9vh,66px);margin:0;object-fit:contain;
-}
-html.compact-embed #mn #pvm{display:none}
-html.compact-embed #mn #modeSelect{
-  top:clamp(164px,27vh,205px);bottom:10px;left:50%;right:auto;
-  transform:translateX(-50%);width:min(430px,calc(100vw - 34px));
-  max-height:calc(100dvh - clamp(174px,28vh,215px));overflow-y:auto;
-  overscroll-behavior:contain;padding:12px;gap:7px;border-radius:14px;
-}
-html.compact-embed #mn #modeSelect .selected-mode{min-height:0;padding-bottom:7px}
-html.compact-embed #mn #modeSelect .mode-option{padding:7px;gap:4px}
-html.compact-embed #mn #modeSelect .mode-option img{height:clamp(30px,6vh,48px)}
-html.compact-embed #mn #modeSelect .mode-option small{font-size:8px}
-html.compact-embed #mn #modeSelect .mode-play{min-height:42px;padding:8px 12px}
-html.compact-embed #mn #menuHint{display:none}
-
-/* Compact desktop HUD: preserve the same positions and hierarchy without
-   triggering the touch HUD just because an iframe happens to be narrow. */
-html.compact-embed #tl{top:7px;left:7px;gap:4px}
-html.compact-embed #tl .chip{padding:4px 6px}
-html.compact-embed #tl .chip b{font-size:13px}
-html.compact-embed #zt{top:7px;max-width:46vw;padding:5px 9px;font-size:9px;overflow:hidden;text-overflow:ellipsis}
-html.compact-embed #mm{top:48px;left:7px;width:76px;height:76px}
-html.compact-embed #feed{top:42px;right:7px;max-width:28vw;font-size:9px}
-html.compact-embed #bars{left:8px;bottom:9px;width:min(180px,34vw)}
-html.compact-embed #wp{
-  left:50%;right:auto;bottom:7px;transform:translateX(-50%);
-  width:max-content;max-width:calc(100vw - 16px);gap:3px;
-  overflow-x:auto;overflow-y:hidden;scrollbar-width:none;
-}
-html.compact-embed #wp::-webkit-scrollbar{display:none}
-html.compact-embed #wp .sl{
-  flex:0 1 82px;min-width:0;max-width:96px;padding:4px 4px;
-  min-height:39px;font-size:8px;
-}
-html.compact-embed #wp .sl span{font-size:8px}
-html.compact-embed #wp .sl b{font-size:9px}
-html.compact-embed #wp .sl .slot-icon{width:22px;height:20px}
-html.compact-embed #wp .build-slot-icon{width:19px;height:19px}
-html.compact-embed #tip{left:50%;bottom:62px;max-width:70vw;font-size:10px}
-html.compact-embed #pa{top:7px;right:7px;padding:5px 8px!important;font-size:10px!important}
-html.compact-embed .p{width:min(560px,calc(100vw - 20px));max-height:calc(100dvh - 20px);overflow:auto}
-@media(max-height:420px){
-  html.compact-embed #mn #gameLogo{display:none}
-  html.compact-embed #mn #modeSelect{top:112px;max-height:calc(100dvh - 122px);padding:8px}
-  html.compact-embed #mn>.row{top:51px}
-  html.compact-embed #mn:before{height:calc(100dvh - 10px)}
-  html.compact-embed #wp .sl{min-height:34px}
-  html.compact-embed #bars{bottom:6px}
-  html.compact-embed #tip{bottom:48px}
-}
-@media(max-width:390px){
-  html.compact-embed #mn #pf small{display:none}
-  html.compact-embed #mn #loginBadge{font-size:7px;padding:3px 4px}
-  html.compact-embed #mn>.row .b.menu-nav .menu-icon{width:16px;height:16px;min-width:16px;max-width:16px}
-  html.compact-embed #mn>.row .b.menu-nav span{font-size:6px}
-  html.compact-embed #wp .sl{flex-basis:68px}
-}
-
 </style><style>
 .mp-actions{width:min(360px,88vw);display:flex;flex-direction:column;gap:7px;margin-top:2px}
 .mp-primary,.mp-secondary{border:1px solid #45617e;border-radius:9px;font:900 11px Inter,"Segoe UI",Arial,sans-serif;letter-spacing:.08em;padding:10px 11px;cursor:pointer}
@@ -1595,17 +1511,11 @@ function tch(e){e.preventDefault();for(const t of e.changedTouches){if(e.type=='
 ['touchstart','touchmove','touchend','touchcancel'].forEach(n=>cv.addEventListener(n,tch,{passive:false}));
 
 function syncMobileOrientation(){
-  const root=document.documentElement;
-  const width=Math.max(1,root.clientWidth||innerWidth),height=Math.max(1,root.clientHeight||innerHeight);
-  root.classList.toggle('rotate-required',!!(MOB&&G&&G.run&&width<height));
-  root.classList.toggle('mobile-portrait',!!(MOB&&width<height));
-  root.classList.toggle('touch-device',!!MOB);
-  /* Width/height are measured from the actual iframe document, not the
-     monitor or outer browser window. */
-  root.classList.toggle('compact-embed',!MOB&&(width<760||height<520));
+  document.documentElement.classList.toggle('rotate-required',!!(MOB&&G&&G.run&&innerWidth<innerHeight));
+  const portrait=MOB&&innerWidth<innerHeight;
+  document.documentElement.classList.toggle('mobile-portrait',!!portrait);
 }
 addEventListener('resize',syncMobileOrientation,{passive:true});
-syncMobileOrientation();
 /* Embedded players can change size without a traditional window resize. */
 let gameViewportResizeFrame=0;
 function onGameViewportResize(){
