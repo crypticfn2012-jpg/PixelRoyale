@@ -1,38 +1,36 @@
 # PixelRoyale Portable Windows build
 
-This folder packages PixelRoyale in an Electron desktop window. It uses the existing live game URL, so it keeps the same game code, multiplayer Worker, matchmaking/private rooms, and game updates as the web version.
+This desktop build packages a **local copy of the complete game** inside the EXE. It no longer opens the live GitHub Pages website, so website outages or web cache issues do not replace the files inside an already-built desktop release.
 
 ## Build on Windows
 
-1. Install **Node.js LTS** from https://nodejs.org/ (if it is not already installed).
-2. Open Command Prompt or PowerShell.
-3. Enter this folder:
-   `cd path\to\PixelRoyale\desktop`
-4. Install the build dependencies:
-   `npm install`
-5. Build the portable executable:
-   `npm run build:portable`
-6. Find the output in `dist\PixelRoyale-Portable-1.0.2.exe`.
+1. Download/extract the latest complete PixelRoyale repository from GitHub (do not download only the `desktop` folder).
+2. Install **Node.js LTS**.
+3. Open PowerShell in the `desktop` folder.
+4. Run:
 
-The portable EXE does not need an installer. You can upload that EXE to itch.io as a Windows download.
+   ```powershell
+   npm install
+   npm run build:portable
+   ```
+
+The build first copies the website, scripts, styles, images, and OG mode into `desktop/game`, then packages that local copy into Electron.
+
+**Output:** `desktop\dist\PixelRoyale-Portable-1.0.3.exe`
 
 ## Desktop features
 
-- Windows 11 exclusive cosmetic: a blue Windows-themed player skin with the four-pane Windows emblem. It is automatically unlocked in the desktop build and is not included in the normal web/CrazyGames build.
-
-- Separate persistent desktop browser storage for game progress/settings.
+- Local bundled game files; no GitHub Pages request is needed to launch.
+- Windows 11 exclusive skin.
+- Persistent desktop save profile.
 - Fullscreen toggle with F11.
 - Window sizes: 1280×720, 1440×900, and 1920×1080.
-- Zoom controls and reset.
-- Always-on-top option.
-- Reload and developer tools.
+- Zoom controls, always-on-top, reload, and developer tools.
 
-## Important limitations
+## Network-dependent features
 
-- **Internet required:** the app loads the live GitHub Pages game, rather than bundling all game assets. It will not start the game offline. A future fully offline-capable package would need the complete game and every asset copied into the Electron app.
-- **Separate save profile:** desktop progress is stored persistently on that PC. It does not automatically merge with browser localStorage.
-- **CrazyGames login:** CrazyGames account authentication/data APIs are platform-specific and are not available as a normal itch.io desktop login. This build can save locally, but it does not provide cross-device cloud account sync. Do not advertise it as doing so.
-- **Multiplayer:** it uses the existing public multiplayer Worker and therefore still requires an internet connection and the Worker to be online.
-- The app is not signed with a code-signing certificate, so Windows SmartScreen may show an unknown-publisher warning on first launch.
+- Multiplayer still requires the PixelRoyale multiplayer Worker and an internet connection.
+- CrazyGames login and platform-only APIs are unavailable in the itch.io desktop build. Desktop progress saves locally.
+- Windows may show an unknown-publisher SmartScreen warning because the EXE is not code-signed.
 
-Do not upload the contents of `node_modules`; upload only the portable EXE.
+Upload only `PixelRoyale-Portable-1.0.3.exe` to itch.io. Do not upload `node_modules` or the temporary `game` staging folder.
