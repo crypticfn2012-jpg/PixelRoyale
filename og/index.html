@@ -6,7 +6,7 @@
 (function(){
   var h=location.hostname.toLowerCase();
   if(h==="crazygames.com"||h.endsWith(".crazygames.com")){
-    document.write('<script src="https://sdk.crazygames.com/crazygames-sdk-v3.js"><\\/script>');
+    document.write('<script src="https://sdk.crazygames.com/crazygames-sdk-v3.js"><\/script>');
   }
 })();
 </script>
@@ -52,7 +52,7 @@ h1{font:900 clamp(34px,9vw,74px)/.92 "Arial Black",Impact,sans-serif;text-align:
 #ogMainGameButton:hover{border-color:#ffe0ac;background:linear-gradient(145deg,#29364a,#101b2b)}
 @media(max-width:620px){#ogMainGameButton{top:8px;left:8px;min-height:38px;padding:0 11px;font-size:9px}}
 </style></head><body>
-<button id="ogMainGameButton" type="button" onclick="window.location.href='https://crypticfn2012-jpg.github.io/PixelRoyale/'" aria-label="Return to the main PixelRoyale game"><span aria-hidden="true">←</span> MAIN GAME</button>
+<button id="ogMainGameButton" type="button" onclick="window.location.href=new URL('../',location.href).href" aria-label="Return to the main PixelRoyale game"><span aria-hidden="true">←</span> MAIN GAME</button>
 <canvas id="g"></canvas>
 <div id="ld" class="s"><svg width="110" viewBox="0 0 22 14" shape-rendering="crispEdges"><path fill="#ff9f1c" d="M1 2h16v2h3v2h-5v2h-3v2h2v2H6v-2h2V8H5V6H1z"/><path fill="#ffd447" d="M1 2h16v1H1z"/></svg>
 <span class="sp" style="--x:-20px;margin-top:-40px"></span><span class="sp" style="--x:25px;animation-delay:.4s;margin-top:-40px"></span>
