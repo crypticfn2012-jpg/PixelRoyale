@@ -16,11 +16,13 @@ This desktop build packages a **local copy of the complete game** inside the EXE
 
 The build first copies the website, scripts, styles, images, and OG mode into `desktop/game`, then packages that local copy into Electron. The app serves those files from a local HTTP address rather than opening them with `file://`, so browser origin, storage, and embedded-page behaviour work normally.
 
-**Output:** `desktop\dist\PixelRoyale-Portable-1.0.4.exe`
+**Output:** `desktop\dist\PixelRoyale-Portable-1.0.5.exe`
 
 ## Desktop features
 
 - Local bundled game files; no GitHub Pages request is needed to launch.
+- Responsive layout layer shared with the CrazyGames browser build.
+- Cross-play uses the same multiplayer Worker and private-room codes as browser players.
 - Windows 11 exclusive skin.
 - Persistent desktop save profile.
 - Fullscreen toggle with F11.
@@ -33,4 +35,4 @@ The build first copies the website, scripts, styles, images, and OG mode into `d
 - CrazyGames login and platform-only APIs are unavailable in the itch.io desktop build. Desktop progress saves locally.
 - Windows may show an unknown-publisher SmartScreen warning because the EXE is not code-signed.
 
-Upload only `PixelRoyale-Portable-1.0.4.exe` to itch.io. Do not upload `node_modules` or the temporary `game` staging folder.
+Upload only `PixelRoyale-Portable-1.0.5.exe` to itch.io. Do not upload `node_modules` or the temporary `game` staging folder.
