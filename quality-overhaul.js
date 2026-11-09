@@ -77,8 +77,8 @@ function polishMap(){
   /* Add small, mode-readable POI landmarks. Their footprints are added to OB, so they block movement exactly where they are drawn. */
   const clear=(px,py,r)=>!OB.some(o=>px+r>o.x&&px-r<o.x+o.w&&py+r>o.y&&py-r<o.y+o.h);
   function placeLandmark(cx,cy,w,h,kind){
-    for(let ring=0;ring<5;ring++)for(let n=0;n<12;n++){
-      const a=n*Math.PI/6+ring*.19,d=ring*34,x0=cx+Math.cos(a)*d-w/2,y0=cy+Math.sin(a)*d-h/2;
+    for(let ring=0;ring<8;ring++)for(let n=0;n<16;n++){
+      const a=n*Math.PI/8+ring*.19,d=ring*32,x0=cx+Math.cos(a)*d-w/2,y0=cy+Math.sin(a)*d-h/2;
       if(Math.hypot(x0+w/2-C,y0+h/2-C)>IR-90||!clear(x0+w/2,y0+h/2,Math.max(w,h)*.62))continue;
       OB.push({x:x0,y:y0,w,h,kind:"landmark"});
       x.save();x.translate(x0,y0);
