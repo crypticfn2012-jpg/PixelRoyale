@@ -8,9 +8,57 @@ const BANNERS=[
 const EMOTES=[
 {id:"gg",name:"GG!",text:"GG!"},{id:"nice",name:"Nice!",text:"NICE!"},{id:"oops",name:"Oops",text:"OOPS"},{id:"royal",name:"Royal",text:"ROYAL!"},{id:"clutch",name:"Clutch",text:"CLUTCH!"},{id:"hype",name:"Hype",text:"LET'S GO!"},{id:"lol",name:"LOL",text:"LOL"},{id:"brb",name:"BRB",text:"BRB"},{id:"ez",name:"EZ",text:"EZ"},{id:"wow",name:"Wow",text:"WOW!"},{id:"ggwp",name:"GGWP",text:"GGWP"},{id:"crown",name:"Crown",text:"CROWN UP!"},{id:"wave",name:"Wave",text:"HEY!"}];
 const DAILY=[
-{type:"elims",title:"Clean Eliminations",desc:"Eliminate 3 opponents",goal:3,xp:180,coins:150},{type:"builds",title:"Build Smart",desc:"Place 10 walls",goal:10,xp:160,coins:130},{type:"seconds",title:"Stay in the Fight",desc:"Spend 5 minutes in matches",goal:300,xp:200,coins:150},{type:"games",title:"Drop In",desc:"Finish 2 matches",goal:2,xp:180,coins:125},{type:"wins",title:"Take the Crown",desc:"Win a match",goal:1,xp:260,coins:200},{type:"top10",title:"Top Ten",desc:"Finish in the top 10",goal:1,xp:210,coins:175}];
+{type:"elims",title:"First Contact",desc:"Eliminate 2 opponents",goal:2,xp:150,coins:120},
+{type:"elims",title:"Clear the Area",desc:"Get 4 eliminations",goal:4,xp:230,coins:180},
+{type:"elims",title:"Hot Drop",desc:"Get 5 eliminations",goal:5,xp:280,coins:210},
+{type:"builds",title:"Build Smart",desc:"Place 10 walls",goal:10,xp:150,coins:120},
+{type:"builds",title:"Quick Cover",desc:"Place 15 walls",goal:15,xp:190,coins:150},
+{type:"builds",title:"Fortify",desc:"Place 20 walls",goal:20,xp:240,coins:180},
+{type:"seconds",title:"Stay in the Fight",desc:"Spend 5 minutes in matches",goal:300,xp:180,coins:140},
+{type:"seconds",title:"Island Time",desc:"Spend 7 minutes in matches",goal:420,xp:220,coins:170},
+{type:"seconds",title:"Keep Moving",desc:"Spend 4 minutes in matches",goal:240,xp:160,coins:125},
+{type:"games",title:"Drop In",desc:"Finish 2 matches",goal:2,xp:170,coins:130},
+{type:"games",title:"Back for More",desc:"Finish 3 matches",goal:3,xp:220,coins:165},
+{type:"games",title:"Warm Up",desc:"Finish 1 match",goal:1,xp:120,coins:90},
+{type:"wins",title:"Take the Crown",desc:"Win a match",goal:1,xp:300,coins:240},
+{type:"wins",title:"Royal Run",desc:"Win 2 matches",goal:2,xp:420,coins:320},
+{type:"top10",title:"Top Ten",desc:"Finish in the top 10",goal:1,xp:200,coins:160},
+{type:"top10",title:"Consistent Contender",desc:"Reach the top 10 twice",goal:2,xp:300,coins:225},
+{type:"xp",title:"Earn Your Stripes",desc:"Earn 200 account XP",goal:200,xp:180,coins:140},
+{type:"xp",title:"Progress Report",desc:"Earn 300 account XP",goal:300,xp:230,coins:175},
+{type:"xp",title:"XP Collector",desc:"Earn 400 account XP",goal:400,xp:280,coins:210},
+{type:"elims",title:"Target Practice",desc:"Eliminate 3 opponents",goal:3,xp:190,coins:150},
+{type:"builds",title:"Builder's Instinct",desc:"Place 12 walls",goal:12,xp:170,coins:135},
+{type:"seconds",title:"Long Haul",desc:"Spend 6 minutes in matches",goal:360,xp:200,coins:155},
+{type:"games",title:"Three's a Crowd",desc:"Finish 3 matches",goal:3,xp:230,coins:175},
+{type:"top10",title:"Survivor's Route",desc:"Reach the top 10 once",goal:1,xp:210,coins:165},
+{type:"wins",title:"One More Win",desc:"Win a match",goal:1,xp:290,coins:225},
+{type:"xp",title:"Signal Hunter",desc:"Earn 250 account XP",goal:250,xp:210,coins:160}
+];
 const WEEKLY=[
-{type:"elims",title:"Elimination Run",desc:"Get 15 eliminations",goal:15,xp:500,coins:350},{type:"builds",title:"Builder's Week",desc:"Place 45 walls",goal:45,xp:430,coins:325},{type:"seconds",title:"Island Regular",desc:"Spend 30 minutes in matches",goal:1800,xp:550,coins:400},{type:"games",title:"Battle-Hardened",desc:"Finish 8 matches",goal:8,xp:480,coins:350},{type:"wins",title:"Royal Champion",desc:"Win 3 matches",goal:3,xp:700,coins:500},{type:"top10",title:"Consistent Contender",desc:"Reach the top 10 five times",goal:5,xp:560,coins:425}];
+{type:"elims",title:"Elimination Run",desc:"Get 15 eliminations",goal:15,xp:500,coins:350},
+{type:"elims",title:"Island Threat",desc:"Get 25 eliminations",goal:25,xp:680,coins:480},
+{type:"elims",title:"Veteran Fighter",desc:"Get 35 eliminations",goal:35,xp:820,coins:580},
+{type:"builds",title:"Builder's Week",desc:"Place 45 walls",goal:45,xp:430,coins:325},
+{type:"builds",title:"Fortress Engineer",desc:"Place 70 walls",goal:70,xp:600,coins:440},
+{type:"builds",title:"Construction Crew",desc:"Place 90 walls",goal:90,xp:720,coins:520},
+{type:"seconds",title:"Island Regular",desc:"Spend 30 minutes in matches",goal:1800,xp:550,coins:400},
+{type:"seconds",title:"Time Served",desc:"Spend 45 minutes in matches",goal:2700,xp:700,coins:500},
+{type:"seconds",title:"All Week Long",desc:"Spend 60 minutes in matches",goal:3600,xp:850,coins:600},
+{type:"games",title:"Battle-Hardened",desc:"Finish 8 matches",goal:8,xp:480,coins:350},
+{type:"games",title:"No Days Off",desc:"Finish 12 matches",goal:12,xp:650,coins:470},
+{type:"games",title:"Full Schedule",desc:"Finish 15 matches",goal:15,xp:760,coins:550},
+{type:"wins",title:"Royal Champion",desc:"Win 3 matches",goal:3,xp:700,coins:500},
+{type:"wins",title:"Winning Streak",desc:"Win 5 matches",goal:5,xp:900,coins:650},
+{type:"top10",title:"Consistent Contender",desc:"Reach the top 10 five times",goal:5,xp:560,coins:425},
+{type:"top10",title:"Survival Specialist",desc:"Reach the top 10 eight times",goal:8,xp:760,coins:550},
+{type:"xp",title:"Weekly Progress",desc:"Earn 1,500 account XP",goal:1500,xp:600,coins:450},
+{type:"xp",title:"XP Marathon",desc:"Earn 2,500 account XP",goal:2500,xp:800,coins:575},
+{type:"elims",title:"Pulse Patrol",desc:"Get 20 eliminations",goal:20,xp:600,coins:440},
+{type:"builds",title:"Cover Specialist",desc:"Place 55 walls",goal:55,xp:520,coins:390},
+{type:"seconds",title:"Lasting Presence",desc:"Spend 40 minutes in matches",goal:2400,xp:650,coins:475},
+{type:"games",title:"Queue Regular",desc:"Finish 10 matches",goal:10,xp:560,coins:410}
+];
 const FS=[3,11,19,27,35,43,49],FH=[4,12,20,28,36,44,50],FT=[6,14,22,30,38,46],FTitle=[2,10,18,26,34,42],FB=[7,15,23,31,39,47],FE=[5,13,21,29,37,45],FX=[8,16,24,32,40,48];
 const PS=[2,10,18,26,34,42,50],PH=[4,12,20,28,36,44],PT=[6,14,22,30,38,46],PTitle=[3,11,19,27,35,43],PB=[5,13,21,29,37,45],PE=[7,15,23,31,39,47],PX=[8,16,24,32,40,48];
 let activePage="pass",activeTrack="free",adBusy=false,timeCarry=0,survivalCarry=0,saveCarry=0,lastBuildXpAt=0,toastTimer=0;
@@ -25,9 +73,29 @@ if(!p.ownedTitles.includes("Rookie"))p.ownedTitles.unshift("Rookie");if(!p.owned
 function dailyKey(){const d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")}
 function weeklyKey(){const d=new Date(),u=new Date(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate()));u.setUTCDate(u.getUTCDate()+4-(u.getUTCDay()||7));const y=new Date(Date.UTC(u.getUTCFullYear(),0,1));return u.getUTCFullYear()+"-W"+String(Math.ceil((((u-y)/86400000)+1)/7)).padStart(2,"0")}
 function hash(s){let h=2166136261;for(let i=0;i<s.length;i++)h=Math.imul(h^s.charCodeAt(i),16777619);return h>>>0}
-function tasks(pool,key,count,step){const start=hash(key)%pool.length;return{key:key,tasks:Array.from({length:count},(_,i)=>{const t=pool[(start+i*step)%pool.length];return{id:key+"-"+i,type:t.type,title:t.title,description:t.desc,goal:t.goal,xp:t.xp,coins:t.coins,progress:0,claimed:false,notified:false}})}}
+function tasks(pool,key,count,exclude){
+let seed=hash(key)||1;
+const random=()=>{seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/4294967296};
+const blocked=new Set((exclude||[]).map(t=>typeof t==="string"?t:t&&t.title).filter(Boolean));
+const shuffled=pool.slice();
+for(let i=shuffled.length-1;i>0;i--){const j=Math.floor(random()*(i+1));[shuffled[i],shuffled[j]]=[shuffled[j],shuffled[i]]}
+let chosen=shuffled.filter(t=>!blocked.has(t.title)).slice(0,count);
+if(chosen.length<count)chosen=chosen.concat(shuffled.filter(t=>!chosen.includes(t))).slice(0,count);
+return{key:key,tasks:chosen.map((t,i)=>({id:key+"-"+i,type:t.type,title:t.title,description:t.desc,goal:t.goal,xp:t.xp,coins:t.coins,progress:0,claimed:false,notified:false}))}
+}
 function cleanTask(t){const goal=Math.max(1,Number(t.goal)||1);return{id:String(t.id||""),type:String(t.type||"games"),title:String(t.title||"Challenge"),description:String(t.description||""),goal:goal,xp:Math.max(0,Number(t.xp)||0),coins:Math.max(0,Number(t.coins)||0),progress:Math.max(0,Math.min(goal,Number(t.progress)||0)),claimed:!!t.claimed,notified:!!t.notified}}
-function init(){const p=state(),d=dailyKey(),w=weeklyKey();if(!p.daily||p.daily.key!==d||!Array.isArray(p.daily.tasks))p.daily=tasks(DAILY,d,3,2);if(!p.weekly||p.weekly.key!==w||!Array.isArray(p.weekly.tasks))p.weekly=tasks(WEEKLY,w,5,1);p.daily.tasks=p.daily.tasks.map(cleanTask);p.weekly.tasks=p.weekly.tasks.map(cleanTask);refreshMenu();save()}
+function init(){
+const p=state(),d=dailyKey(),w=weeklyKey();
+if(!p.daily||p.daily.key!==d||!Array.isArray(p.daily.tasks)){
+const previous=p.daily&&Array.isArray(p.daily.tasks)?p.daily.tasks.map(t=>t&&t.title).filter(Boolean):[];
+p.daily=tasks(DAILY,d,3,previous);
+}
+if(!p.weekly||p.weekly.key!==w||!Array.isArray(p.weekly.tasks)){
+const previous=p.weekly&&Array.isArray(p.weekly.tasks)?p.weekly.tasks.map(t=>t&&t.title).filter(Boolean):[];
+p.weekly=tasks(WEEKLY,w,5,previous);
+}
+p.daily.tasks=p.daily.tasks.map(cleanTask);p.weekly.tasks=p.weekly.tasks.map(cleanTask);refreshMenu();save()
+}
 function accountInfo(xp){let left=Math.max(0,Number(xp)||0),level=1,needed=100;while(level<200&&left>=needed){left-=needed;level++;needed=100+(level-1)*35}return{level:level,into:left,needed:needed,progress:Math.min(1,left/needed)}}
 function passInfo(xp){let left=Math.max(0,Number(xp)||0),unlocked=0;while(unlocked<LEVELS&&left>=tierXP(unlocked+1)){left-=tierXP(unlocked+1);unlocked++}if(unlocked>=LEVELS)return{unlocked:LEVELS,into:0,needed:1,progress:1,complete:true};const need=tierXP(unlocked+1);return{unlocked:unlocked,into:left,needed:need,progress:Math.min(1,left/need),complete:false}}
 function notify(message,good){let el=document.getElementById("prProgressToast");if(!el){el=document.createElement("div");el.id="prProgressToast";el.setAttribute("role","status");document.body.appendChild(el)}el.className=good===false?"pr-toast pr-toast-warn":"pr-toast";el.textContent=message;el.classList.add("show");clearTimeout(toastTimer);toastTimer=setTimeout(()=>{if(el)el.classList.remove("show")},2600)}
