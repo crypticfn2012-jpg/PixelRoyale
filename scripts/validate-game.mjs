@@ -22,7 +22,7 @@ try {
     checked++;
   }
   const html = readFileSync(join(root, "index.html"), "utf8");
-  const inlineScripts = [...html.matchAll(/<script\b([^>]*)>([\s\\S]*?)<\/script\s*>/gi)]
+  const inlineScripts = [...html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script\s*>/gi)]
     .filter((match) => !/\bsrc\s*=/.test(match[1]) && match[2].trim());
   for (let i = 0; i < inlineScripts.length; i++) {
     const file = join(temp, `inline-${i}.js`);
