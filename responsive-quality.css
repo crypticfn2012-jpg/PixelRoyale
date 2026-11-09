@@ -1,0 +1,41 @@
+/* PixelRoyale responsive pass — fixed edge anchors, safe areas and compact desktop embeds. */
+:root{--pr-safe-top:env(safe-area-inset-top,0px);--pr-safe-right:env(safe-area-inset-right,0px);--pr-safe-bottom:env(safe-area-inset-bottom,0px);--pr-safe-left:env(safe-area-inset-left,0px)}
+#mn,#hud{width:100%;height:100%}
+#mn #pf{top:calc(12px + var(--pr-safe-top));left:calc(12px + var(--pr-safe-left))}
+#mn #top{top:calc(12px + var(--pr-safe-top));right:calc(14px + var(--pr-safe-right))}
+#mn>.row{top:calc(68px + var(--pr-safe-top));right:calc(14px + var(--pr-safe-right));gap:clamp(3px,.45vw,7px)}
+#mn #modeSelect{right:calc(20px + var(--pr-safe-right));bottom:calc(18px + var(--pr-safe-bottom));width:min(370px,32vw);max-height:calc(100% - 150px - var(--pr-safe-top) - var(--pr-safe-bottom));overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin}
+#mn #menuHint{left:calc(18px + var(--pr-safe-left));bottom:calc(18px + var(--pr-safe-bottom));max-width:min(440px,38vw)}
+#mapLegend{position:absolute;z-index:6;left:12px;top:194px;display:flex;flex-direction:column;gap:5px;padding:7px 9px;border:1px solid rgba(160,184,218,.22);border-radius:8px;background:rgba(7,13,23,.68);color:#d8e4f4;font:800 8px/1.2 "Segoe UI",Arial,sans-serif;letter-spacing:.075em;pointer-events:none}
+#mapLegend span{display:flex;align-items:center;gap:6px;white-space:nowrap}
+#mapLegend i{display:inline-block;width:17px;height:5px;border-radius:4px;flex:0 0 auto}
+#mapLegend .legend-road{background:linear-gradient(90deg,#a69a77 0 15%,#59636a 15% 85%,#a69a77 85%);border-top:1px dashed rgba(255,255,255,.75)}
+#mapLegend .legend-blocked{height:9px;width:9px;border:1px solid #a8e08b;background:#2c6e39;border-radius:3px}
+#mpLobby,#pl,#pz,#en{padding:clamp(8px,2vw,22px)}
+#mpLobby .mp-lobby-card{max-height:calc(100dvh - 24px);overflow-y:auto}
+#pl .p{max-height:calc(100dvh - 76px)}
+@media(min-width:600px) and (max-height:560px){
+ #mn{overflow:hidden}
+ #mn #pf{top:calc(7px + var(--pr-safe-top));left:calc(8px + var(--pr-safe-left));max-width:190px;padding:5px 8px;gap:6px}
+ #mn #av{width:29px;height:29px;flex-basis:29px}
+ #mn #pf b{font-size:10px} #mn #pf small{max-width:116px;font-size:8px}
+ #mn #loginBadge{padding:4px 6px;font-size:7px}
+ #mn #top{top:calc(7px + var(--pr-safe-top));right:calc(8px + var(--pr-safe-right));gap:5px}
+ #mn #cn{padding:6px 8px;font-size:11px} #mn #mu{min-width:72px;padding:6px 8px;font-size:8px}
+ #mn>.row{top:calc(51px + var(--pr-safe-top));left:calc(214px + var(--pr-safe-left));right:calc(8px + var(--pr-safe-right));justify-content:flex-end;flex-wrap:nowrap;max-width:none;width:auto;gap:3px}
+ #mn>.row .b.menu-nav{width:auto;min-width:0;max-width:76px;flex:1 1 0;height:44px;padding:3px 2px;gap:2px;border-radius:8px}
+ #mn>.row .b.menu-nav .menu-icon{width:19px;height:19px} #mn>.row .b.menu-nav span{font-size:7px;letter-spacing:0}
+ #mn #gameLogo{top:calc(83px + var(--pr-safe-top));left:calc(12px + var(--pr-safe-left));width:min(230px,27vw);height:clamp(48px,11vh,66px)}
+ #mn #pvm{top:54%;left:31%;width:clamp(112px,17vw,158px);height:clamp(112px,17vw,158px)}
+ #mn #modeSelect{top:calc(105px + var(--pr-safe-top));right:calc(9px + var(--pr-safe-right));bottom:calc(8px + var(--pr-safe-bottom));left:auto;width:min(390px,calc(100vw - 24px));max-height:none;padding:10px;gap:6px;border-radius:13px}
+ #mn #modeSelect .selected-mode{padding-bottom:5px;gap:2px 5px} #mn #selectedModeName{font-size:13px} #mn #selectedModeDesc{font-size:8px}
+ #mn #modeSelect .mode-picker{gap:5px} #mn #modeSelect .mode-option{padding:5px;gap:3px}
+ #mn #modeSelect .mode-option img{height:clamp(30px,7vh,42px)} #mn #modeSelect .mode-option b{font-size:8px} #mn #modeSelect .mode-option small{font-size:7px}
+ #mn #modeSelect .mode-play{min-height:37px;padding:7px 10px;font-size:9px} #mn #modeSelect .mode-play b{font-size:18px}
+ #mn #menuHint{left:calc(10px + var(--pr-safe-left));bottom:calc(8px + var(--pr-safe-bottom));width:min(360px,calc(100vw - 430px));max-width:36vw;padding:7px 9px;font-size:8px;line-height:1.35}
+ #mapLegend{top:145px;left:8px;padding:5px 6px;font-size:7px}
+}
+@media(min-width:600px) and (max-height:400px){#mn #modeSelect{top:calc(92px + var(--pr-safe-top));padding:7px}#mn #gameLogo{top:calc(75px + var(--pr-safe-top));height:42px}#mn #pvm,#mn #menuHint{display:none}}
+@media(max-width:599px){#mapLegend{display:none}#mn #modeSelect{max-height:calc(100dvh - 145px - var(--pr-safe-top) - var(--pr-safe-bottom))}}
+@media(max-width:430px){#mn #menuHint{display:none}#mn #modeSelect{left:8px;right:8px;width:auto}}
+@media(prefers-reduced-motion:reduce){#mn>.row .b.menu-nav{transition:none}}

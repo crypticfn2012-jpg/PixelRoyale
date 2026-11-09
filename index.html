@@ -914,7 +914,7 @@ h1 span{color:#edf3fc;text-shadow:none;letter-spacing:.13em;font-size:.72em;marg
 @media(prefers-reduced-motion:reduce){#mn #modePicker .mode-option,#mn #modeSelect .mode-play,#mn .menu-nav,#ogReturnButton{transition:none}}
 </style>
 <link rel="stylesheet" href="pixelpass.css">
-<link rel="stylesheet" href="ui-polish.css"></head><body>
+<link rel="stylesheet" href="ui-polish.css"><link rel="stylesheet" href="responsive-quality.css"></head><body>
 <canvas id="g"></canvas>
 <div id="boot" aria-label="Loading PixelRoyale"><div class="boot-inner">
 <svg class="boot-logo" viewBox="0 0 500 330" role="img" aria-label="PixelForge Studios">
@@ -951,7 +951,7 @@ h1 span{color:#edf3fc;text-shadow:none;letter-spacing:.13em;font-size:.72em;marg
     <div class="mp-lobby-kicker">PRIVATE MATCH</div>
     <h2 id="mpLobbyTitle">ROOM LOBBY</h2>
     <p id="mpLobbyDescription">Invite a friend with this room code.</p>
-    <div class="mp-lobby-code"><span>ROOM CODE</span><strong id="mpLobbyCode">------</strong><button class="mp-secondary" onclick="mpCopyRoomCode()">COPY</button></div>
+    <div class="mp-lobby-code"><span>ROOM CODE</span><strong id="mpLobbyCode">------</strong><button class="mp-secondary" onclick="mpCopyRoomCode()">COPY CODE</button><button class="mp-secondary" onclick="mpCopyCrazyInviteLink()">INVITE LINK</button></div>
     <div id="mpHostModeRow" class="mp-host-mode h"><label for="mpLobbyMode">GAMEMODE</label><select id="mpLobbyMode" onchange="mpHostSetMode(this.value)"><option value="br">BATTLE ROYALE</option><option value="box">BOX FIGHTS</option></select></div>
     <div class="mp-lobby-players"><div><b>PLAYERS</b><span id="mpLobbyCount">1 connected</span></div><div id="mpLobbyPlayerList">You · Host<br>Waiting for players…</div></div>
     <p id="mpLobbyStatus" role="status">Connecting to room…</p>
@@ -961,7 +961,7 @@ h1 span{color:#edf3fc;text-shadow:none;letter-spacing:.13em;font-size:.72em;marg
 </div>
 <div id="pl" class="s h" style="background:#000a"><div class="p" id="pc"></div><button class="b" onclick="cl()">CLOSE</button></div>
 <div id="hud" class="h"><div id="vg"></div><div id="dm"></div><div id="fps" class="h">FPS: --</div>
-<div id="tl"><div class="chip"><span>ALIVE</span><b id="al"></b></div><div class="chip"><span>ELIMS</span><b id="kl"></b></div></div><div id="zt"></div><div id="feed"></div><canvas id="mm" width="124" height="124"></canvas>
+<div id="tl"><div class="chip"><span>ALIVE</span><b id="al"></b></div><div class="chip"><span>ELIMS</span><b id="kl"></b></div></div><div id="zt"></div><div id="feed"></div><canvas id="mm" width="124" height="124"></canvas><div id="mapLegend" aria-label="Map legend"><span><i class="legend-road"></i> WALKABLE ROUTE</span><span><i class="legend-blocked"></i> SOLID OBJECT</span></div>
 <div id="bars"><div class="bar sh"><i id="sb"></i><b id="st1"></b></div><div class="bar hp"><i id="hb"></i><b id="ht1"></b></div></div><div id="wp"></div><div id="tip"></div><div id="movePad" class="touch-pad move-pad" aria-label="Movement joystick"><span class="pad-label">MOVE</span><span class="pad-ring"><span class="pad-knob"></span></span></div><div id="aimPad" class="touch-pad aim-pad" aria-label="Aim joystick"><span class="pad-label">AIM</span><span class="pad-ring"><span class="pad-knob"></span></span></div>
 <button class="b" id="pa" onclick="pz()">II</button><div id="mb"><button class="b" id="bw" onclick="toggleBuildMode()">BUILD</button><button class="b g" id="bt" onclick="if(G&amp;&amp;G.edit)finishEdit();else if(G)beginEdit(G.u.x,G.u.y)">EDIT</button><button class="b g" id="bpk" onclick="G&amp;&amp;G.run&amp;&amp;pickupNearby(G.u)">PICKUP</button><button class="b g" id="bm">MED</button><button class="b g" id="bj">SHLD</button><button class="b g" id="bch">CHUG</button><button class="b fire" id="bf" aria-label="Hold to shoot">FIRE</button><button class="b" id="br">RELOAD</button><button class="b g" id="bs">SWAP</button><button class="b g pulse-dash-touch h" id="bpd" aria-label="Pulse Dash">DASH</button></div></div>
 <div id="rotateNotice" role="status" aria-live="polite"><div class="rotate-card"><div class="rotate-symbol">↻</div><strong>ROTATE YOUR DEVICE</strong><p>PixelRoyale is designed for landscape play.</p><span>Turn your phone sideways to continue.</span></div></div><div id="pz" class="s h" style="background:#000b"><h1>PAUSED</h1><button class="b" onclick="rs()">RESUME</button><button class="b g" onclick="qt()">QUIT TO MENU</button></div>
@@ -969,12 +969,12 @@ h1 span{color:#edf3fc;text-shadow:none;letter-spacing:.13em;font-size:.72em;marg
 <button class="b g" id="x2">WATCH AD: DOUBLE COINS</button><button class="b g" id="lg2" onclick="login()">LOG IN TO SAVE PROGRESS</button><button class="b" onclick="play(G&amp;&amp;G.mode||'br')">PLAY AGAIN</button><button class="b g" onclick="menu()">MENU</button></div>
 <script>
 const $=i=>document.getElementById(i),R=Math.random,CG=window.CrazyGames&&window.CrazyGames.SDK;
-let sdkReady=false;
+let sdkReady=false,cgAudioMuted=false;
 let S={coins:0,skin:0,own:[1,0,0,0,0,0],wl:0,ow:[1],up:[0,0,0],wins:0,games:0,kills:0,best:99,play:0,claimed:0,hat:0,tr:0,oh:[1],ot:[1],dd:0,streak:0,winStreak:0,lossStreak:0,skillRating:0,settings:{resolution:'native',fov:115,volume:80,sound:true,particles:true,screenShake:true,graphicsQuality:'high',showMinimap:true,showFps:false,enemyHealthBars:true,controls:{build:'f',edit:'v',pickup:'e',med:'h',shield:'j',chug:'k',reload:'r',pause:'escape'} }},user=null,muted=0,sndOn=1,rebindAction=null;
 const IS_DESKTOP_BUILD=new URLSearchParams(location.search).get('desktop')==='1';
 const WINDOWS_SKIN_COLOR='#0078d4';
 const SK=[['Blaze','#ff9f1c',0],['Mint','#2ec4b6',150],['Rose','#ff4d8d',300],['Royal','#8a6cff',500],['Lime','#9be22b',800],['Gold','#ffd447',1200],['Shadow','#3a3f55',1800],['Frost','#9be7ff',2500],['Volt','#68f0df',3200],['Ember','#ff704f',3900],['Glacier','#dce7ff',4600],['Midnight','#202b45',5200],['Solar','#ffdf4d',5800],['Cyber','#42e6ff',6400],['Phantom','#b86cff',7000],['Apex','#ff5d51',7600],['Pulse Sovereign','#48edff',9000],['Pulse Drifter','#c45cff',8200],['Neon Containment','#4cf0ff',8800],['Blacksite Echo','#7b59ff',9600],...(IS_DESKTOP_BUILD?[['Windows 11',WINDOWS_SKIN_COLOR,0]]:[])],
-HT=[['None','🚫',0],['Cap','🧢',200],['Horns','😈',400],['Halo','😇',700],['Crown','👑',1200],['Wizard','🧙',1800],['Bandana','🧣',2400],['Headset','🎧',3000],['Antlers','🦌',3600],['Pixel Crown','👑',4200],['Chrome Visor','🕶️',4800],['Angel Wings','🪽',5400],['Orbit Halo','💫',6000],['Royal Mask','🎭',6600],['Neon Helmet','⛑️',7200],['Pulse Crown','♛',7800],['Signal Visor','◈',8200],['Containment Hood','⬡',8600]],TR=[['Default','#fff',0],['Fire','#ff5a1f',250],['Ice','#4dc9ff',250],['Toxic','#9be22b',500],['Pink','#ff4d8d',500],['Rainbow','#ff0',1500],['Comet','#b5a0ff',2200],['Static','#ffe08a',2800],['Comet Fire','#ff9f43',3400],['Neon Flux','#70ffff',3900],['Royal Aura','#b38cff',4500],['Starfall','#fff0a8',5200],['Pulse Shift','#7dff9d',5800],['Starlight','#e8e9ff',6400],['Pulse Orbit','#c65cff',7000],['Rift Current','#51eaff',7600],['Blacksite Wake','#9a65ff',8200]],WL=[['Oak','#b3813f',0],['Stone','#8d939c',300],['Neon','#243066',600],['Steel','#7e8fa6',900],['Candy','#ff6fa8',1200],['Golden','#e8b923',2000],['Pulse Glass','#55e9ff',2600],['Void Rift','#8b55ff',3200],['Toxic Circuit','#65f078',3800],['Royal Prism','#e3b6ff',4500]],
+HT=[['None','🚫',0],['Cap','🧢',200],['Horns','😈',400],['Halo','😇',700],['Crown','👑',1200],['Wizard','🧙',1800],['Bandana','🧣',2400],['Headset','🎧',3000],['Antlers','🦌',3600],['Pixel Crown','👑',4200],['Chrome Visor','🕶️',4800],['Angel Wings','🪽',5400],['Orbit Halo','💫',6000],['Royal Mask','🎭',6600],['Neon Helmet','⛑️',7200],['Pulse Crown','♛',7800],['Signal Visor','◈',8200],['Containment Hood','⬡',8600],['Signal Antenna','📡',9200],['Holo Crown','♛',9800],['Orbit Rings','💫',10400],['Pilot Visor','🥽',11200],['Wild Sprout','🌿',12000]],TR=[['Default','#fff',0],['Fire','#ff5a1f',250],['Ice','#4dc9ff',250],['Toxic','#9be22b',500],['Pink','#ff4d8d',500],['Rainbow','#ff0',1500],['Comet','#b5a0ff',2200],['Static','#ffe08a',2800],['Comet Fire','#ff9f43',3400],['Neon Flux','#70ffff',3900],['Royal Aura','#b38cff',4500],['Starfall','#fff0a8',5200],['Pulse Shift','#7dff9d',5800],['Starlight','#e8e9ff',6400],['Pulse Orbit','#c65cff',7000],['Rift Current','#51eaff',7600],['Blacksite Wake','#9a65ff',8200],['Aurora Wake','#82ffc2',8800],['Solar Flare','#ffcf68',9400],['Deep Space','#6276ff',10000],['Signal Bloom','#54f2e2',10600],['Rift Shards','#e16dff',11200],['Arctic Trace','#b9f3ff',11800]],WL=[['Oak','#b3813f',0],['Stone','#8d939c',300],['Neon','#243066',600],['Steel','#7e8fa6',900],['Candy','#ff6fa8',1200],['Golden','#e8b923',2000],['Pulse Glass','#55e9ff',2600],['Void Rift','#8b55ff',3200],['Toxic Circuit','#65f078',3800],['Royal Prism','#e3b6ff',4500]],
 CO={skin:['Skins',SK,'own','skin',k=>`<i class="sw" style="background:${k[1]}"></i>`],hat:['Hats',HT,'oh','hat',k=>k[1]+' '],tr:['Trails',TR,'ot','tr',k=>`<i class="sw" style="background:${k[1]}"></i>`],wl:['Builds',WL,'ow','wl',k=>`<i class="sw" style="background:${k[1]}"></i>`]};
 const tcol=c=>S.tr?(S.tr==5?`hsl(${G.T*400%360|0},90%,60%)`:TR[S.tr][1]):c;
 function hatd(h){if(!h)return;cx.save();cx.translate(1,0);cx.fillStyle='#d94a3d';
@@ -994,6 +994,11 @@ else if(h==14){cx.fillStyle='#27384a';cx.beginPath();cx.roundRect(-11,-9,22,18,5
 else if(h==15){cx.fillStyle='#1b2540';cx.beginPath();cx.moveTo(-12,-3);cx.lineTo(-10,-12);cx.lineTo(-4,-6);cx.lineTo(0,-16);cx.lineTo(4,-6);cx.lineTo(10,-12);cx.lineTo(12,-3);cx.closePath();cx.fill();cx.strokeStyle='#c45cff';cx.lineWidth=2;cx.stroke();cx.strokeStyle='#65f4ff';cx.beginPath();cx.moveTo(-10,0);cx.lineTo(10,0);cx.stroke()}
 else if(h==16){cx.fillStyle='#172942';cx.beginPath();cx.roundRect(-13,-6,26,12,5);cx.fill();cx.strokeStyle='#55f4ff';cx.lineWidth=2;cx.stroke();cx.fillStyle='#bf68ff';cx.fillRect(-9,-3,18,4);cx.fillStyle='#e7fcff';cx.fillRect(-4,-2,8,2)}
 else if(h==17){cx.fillStyle='#201b3e';cx.beginPath();cx.moveTo(-12,7);cx.lineTo(-11,-6);cx.lineTo(-5,-2);cx.lineTo(0,-12);cx.lineTo(5,-2);cx.lineTo(11,-6);cx.lineTo(12,7);cx.closePath();cx.fill();cx.strokeStyle='#9464ff';cx.lineWidth=2;cx.stroke();cx.fillStyle='#56f2ff';cx.fillRect(-8,3,16,2)}
+else if(h==18){cx.strokeStyle='#4fe9ff';cx.lineWidth=2.5;cx.beginPath();cx.moveTo(0,-3);cx.lineTo(1,-17);cx.quadraticCurveTo(10,-22,13,-15);cx.stroke();cx.fillStyle='#ff5bc9';cx.beginPath();cx.arc(13,-15,3.5,0,7);cx.fill();cx.fillStyle='#173149';cx.beginPath();cx.roundRect(-9,-4,18,8,3);cx.fill();cx.strokeStyle='#4fe9ff';cx.stroke()}
+else if(h==19){cx.fillStyle='#31224f';cx.beginPath();cx.moveTo(-13,4);cx.lineTo(-11,-10);cx.lineTo(-5,-5);cx.lineTo(0,-17);cx.lineTo(5,-5);cx.lineTo(11,-10);cx.lineTo(13,4);cx.closePath();cx.fill();cx.strokeStyle='#d67cff';cx.lineWidth=2;cx.stroke();cx.fillStyle='#62f4ff';cx.fillRect(-8,0,16,3);cx.fillStyle='#ffd47d';cx.fillRect(-1.5,-8,3,4)}
+else if(h==20){cx.strokeStyle='#b78aff';cx.lineWidth=2.5;cx.beginPath();cx.ellipse(0,-3,14,6,-.35,0,Math.PI*2);cx.stroke();cx.strokeStyle='#51eaff';cx.beginPath();cx.ellipse(0,-3,8,13,.65,0,Math.PI*2);cx.stroke();cx.fillStyle='#ffd47d';cx.beginPath();cx.arc(0,-15,3,0,7);cx.fill()}
+else if(h==21){cx.fillStyle='#263e4b';cx.beginPath();cx.moveTo(-13,-6);cx.quadraticCurveTo(0,-15,13,-6);cx.lineTo(10,5);cx.quadraticCurveTo(0,11,-10,5);cx.closePath();cx.fill();cx.strokeStyle='#ffbf61';cx.lineWidth=2;cx.stroke();cx.fillStyle='#ff8d54';cx.beginPath();cx.roundRect(-9,-4,18,5,2);cx.fill();cx.fillStyle='#e7faff';cx.fillRect(-5,-3,10,2)}
+else if(h==22){cx.strokeStyle='#72d98b';cx.lineWidth=3;cx.beginPath();cx.arc(0,1,11,Math.PI,Math.PI*2);cx.stroke();for(const side of[-1,1]){cx.fillStyle=side<0?'#5abf71':'#9ce58b';cx.beginPath();cx.ellipse(side*7,-8,4,8,side*.5,0,Math.PI*2);cx.fill();cx.strokeStyle='#2f8152';cx.lineWidth=1.2;cx.stroke()}cx.fillStyle='#e6f5c8';cx.beginPath();cx.arc(0,-12,2.5,0,7);cx.fill()}
 else{cx.fillStyle='#5b2fb0';cx.beginPath();cx.arc(0,0,12,0,7);cx.fill();cx.stroke();cx.fillStyle='#7b45e0';cx.beginPath();cx.arc(0,0,7.5,0,7);cx.fill();cx.fillStyle='#ffd447';cx.fillRect(-1.5,-1.5,3,3)}cx.restore()}
 function gunD(t,rarity=0){if(t===PULSE_SPLASH_INDEX){const art=ART.guns[PULSE_SPLASH_INDEX];if(art&&art.complete&&art.naturalWidth){cx.save();cx.drawImage(art,-12,-12,30,24);cx.restore();return}cx.save();cx.fillStyle='#252142';cx.strokeStyle='#d16aff';cx.lineWidth=2;cx.beginPath();cx.roundRect(7,-7,21,14,5);cx.fill();cx.stroke();cx.fillStyle='#4beeff';cx.fillRect(11,-4,12,3);cx.fillStyle='#c66bff';cx.fillRect(17,1,6,3);cx.restore();return}const pulse=t>=BASE_GUN_COUNT,baseT=pulse?t-BASE_GUN_COUNT:t,c=pulse?(baseT%3===2?'#ff4bc8':'#42efff'):(TIERS[rarity]||TIERS[0]).c;t=baseT;cx.fillStyle='#2a2d36';
 if(t==0){cx.fillRect(10,-2.5,13,5);cx.fillStyle=c;cx.fillRect(13,-1,8,2)}
@@ -1173,7 +1178,7 @@ const ART={guns:WEAPON_ICON_FILES.map(src=>{const im=new Image();im.src=src;im.o
 function save(){const j=JSON.stringify(S);try{if(sdkReady&&CG&&CG.environment!=='disabled'&&CG.data&&typeof CG.data.setItem==='function')CG.data.setItem('pr',j)}catch(e){console.warn('CrazyGames data save unavailable; using browser storage',e)}try{localStorage.setItem('pr',j)}catch(e){}}
 function ad(t){return new Promise(resolve=>{if(!sdkReady||!CG||CG.environment==='disabled'||!CG.ad||typeof CG.ad.requestAd!=='function')return resolve(false);const now=Date.now(),progress=S.progression&&typeof S.progression==='object'?S.progression:null,until=Math.max(Number(S.rewardedCooldownUntil)||0,progress?Number(progress.adBonusReadyAt)||0:0);if(t==='rewarded'&&now<until)return resolve(false);if(t==='rewarded'){S.rewardedCooldownUntil=now+180000;if(progress)progress.adBonusReadyAt=S.rewardedCooldownUntil;save()}let settled=false;const finish=ok=>{if(settled)return;settled=true;muted=0;clearTimeout(timeout);if(t==='rewarded'){const next=Date.now()+(ok?180000:30000);S.rewardedCooldownUntil=next;if(S.progression&&typeof S.progression==='object')S.progression.adBonusReadyAt=next;save();if(ok&&window.PixelProgress&&typeof window.PixelProgress.onRewardedAdComplete==='function'){try{window.PixelProgress.onRewardedAdComplete()}catch(e){console.warn('PixelPass rewarded-ad tracking failed',e)}}}resolve(!!ok)};const timeout=setTimeout(()=>finish(false),120000);try{CG.ad.requestAd(t,{adStarted:()=>{muted=1},adFinished:()=>finish(true),adError:()=>finish(false)})}catch(e){finish(false)}})}
 const gp=s=>{try{if(sdkReady&&CG&&CG.environment!=='disabled'&&CG.game){const method=s?'gameplayStart':'gameplayStop';if(typeof CG.game[method]==='function')CG.game[method]()}}catch(e){}};
-let ac;function snd(f,d=.06,t='square',v=.04){if(muted||!sndOn||!S.settings.sound||S.settings.volume<=0)return;try{ac=ac||new AudioContext();const o=ac.createOscillator(),g=ac.createGain();o.type=t;o.frequency.value=f;g.gain.value=Math.max(.0001,v*(S.settings.volume/100));g.gain.exponentialRampToValueAtTime(1e-4,ac.currentTime+d);o.connect(g);g.connect(ac.destination);o.start();o.stop(ac.currentTime+d)}catch(e){}}
+let ac;function snd(f,d=.06,t='square',v=.04){if(cgAudioMuted||muted||!sndOn||!S.settings.sound||S.settings.volume<=0)return;try{ac=ac||new AudioContext();const o=ac.createOscillator(),g=ac.createGain();o.type=t;o.frequency.value=f;g.gain.value=Math.max(.0001,v*(S.settings.volume/100));g.gain.exponentialRampToValueAtTime(1e-4,ac.currentTime+d);o.connect(g);g.connect(ac.destination);o.start();o.stop(ac.currentTime+d)}catch(e){}}
 // Season 1 news is data-driven so announcements can be edited here without changing the UI.
 const SEASON1_NEWS={eyebrow:'PIXELROYALE // SEASON 01',title:'PULSE',intro:'Something beneath the island has powered back on. The landscape is changing, and the signal is getting stronger.',items:[{title:'A larger island',body:'Explore expanded terrain, new routes and updated landmarks across the island.'},{title:'Pulse activity detected',body:'Cyan and magenta energy signatures are appearing around the central research zone.'},{title:'More to come',body:'New weapons, encounters and rewards are planned as the Pulse season develops.'}],footer:'SEASON 01 · RESEARCH LOG // STATUS: ACTIVE'};
 function renderPulseNews(){const n=SEASON1_NEWS,put=(id,v)=>{const el=$(id);if(el)el.textContent=v};put('pulseNewsEyebrow',n.eyebrow);put('pulseNewsTitle',n.title);put('pulseNewsIntro',n.intro);put('pulseNewsFooter',n.footer);const body=$('pulseNewsBody');if(body)body.innerHTML=n.items.map(i=>'<article class="pulse-news-item"><b>'+escNews(i.title)+'</b><span>'+escNews(i.body)+'</span></article>').join('')}
@@ -1191,7 +1196,20 @@ for(const[r,c]of[[IR+58,'rgba(255,255,255,.35)'],[IR+44,'#cdb97a'],[IR+30,'#eddc
 const gc=['#68ad49','#4e9036','#73b553','#559a3a'];for(let i=0;i<14500;i++){const[a,b]=rp(IR-16);x.fillStyle=gc[i&3];x.fillRect(a,b,2+rnd()*2,2+rnd()*2)}
 x.fillStyle='rgba(30,80,30,.10)';for(let i=0;i<35;i++){const[a,b]=rp(IR-60);x.beginPath();x.ellipse(a,b,30+rnd()*70,20+rnd()*50,rnd()*3,0,7);x.fill()}
 x.strokeStyle='#3f8230';x.lineWidth=1.5;for(let i=0;i<320;i++){const[a,b]=rp(IR-30);x.beginPath();x.moveTo(a-3,b);x.lineTo(a-1,b-5);x.moveTo(a+3,b);x.lineTo(a+1,b-5);x.stroke()}
-x.lineCap='round';for(const[w,c]of[[44,'#8c7850'],[34,'#c4ae7c']])for(const[i,j]of[[0,1],[0,2],[0,3],[0,4],[1,2],[2,4],[4,3],[3,1],[0,5],[1,5],[2,5]]){x.strokeStyle=c;x.lineWidth=w;x.beginPath();x.moveTo(POI[i][1],POI[i][2]);x.lineTo(POI[j][1],POI[j][2]);x.stroke()}
+// Layered, curved asphalt routes make the walkable network easy to read.
+x.lineCap='round';x.lineJoin='round';
+const roadPairs=[[0,1],[0,2],[0,3],[0,4],[1,2],[2,4],[4,3],[3,1],[0,5],[1,5],[2,5]];
+roadPairs.forEach(([i,j],index)=>{
+ const ax=POI[i][1],ay=POI[i][2],bx=POI[j][1],by=POI[j][2],dx=bx-ax,dy=by-ay,len=Math.max(1,Math.hypot(dx,dy));
+ const bend=(index%2?1:-1)*Math.min(105,len*.11),px=-dy/len*bend,py=dx/len*bend;
+ const path=()=>{x.beginPath();x.moveTo(ax,ay);x.bezierCurveTo(ax+dx*.32+px,ay+dy*.32+py,bx-dx*.32+px,by-dy*.32+py,bx,by)};
+ path();x.strokeStyle='rgba(8,17,22,.36)';x.lineWidth=66;x.stroke();
+ path();x.strokeStyle='#a69a77';x.lineWidth=58;x.stroke();
+ path();x.strokeStyle='#59636a';x.lineWidth=48;x.stroke();
+ path();x.strokeStyle='rgba(210,218,211,.34)';x.lineWidth=1.6;x.stroke();
+ path();x.strokeStyle='rgba(238,224,183,.78)';x.lineWidth=2.5;x.setLineDash([17,20]);x.stroke();x.setLineDash([]);
+ path();x.strokeStyle='rgba(235,241,232,.38)';x.lineWidth=1.2;x.setLineDash([5,34]);x.stroke();x.setLineDash([]);
+});
 const bld=(bx,by,w,h,c)=>{x.fillStyle='rgba(0,0,0,.3)';x.fillRect(bx+9,by+9,w,h);x.fillStyle='#e9e1cc';x.fillRect(bx,by,w,h);const g=x.createLinearGradient(0,by,0,by+h);g.addColorStop(0,shade(c,.25));g.addColorStop(.5,c);g.addColorStop(.5,shade(c,-.18));g.addColorStop(1,shade(c,-.3));x.fillStyle=g;x.fillRect(bx+4,by+4,w-8,h-8);x.strokeStyle='rgba(0,0,0,.16)';x.lineWidth=1;x.beginPath();for(let i=by+12;i<by+h-6;i+=8){x.moveTo(bx+4,i);x.lineTo(bx+w-4,i)}x.stroke();x.fillStyle='rgba(0,0,0,.35)';x.fillRect(bx+4,by+h/2-1.5,w-8,3);x.fillStyle='#5c4b3a';x.fillRect(bx+w/2-7,by+h-4,14,6);x.fillStyle='#9fd4ee';x.fillRect(bx+10,by+10,10,7);x.fillStyle='#777';x.fillRect(bx+w-22,by+10,12,12);x.strokeStyle='#26221c';x.lineWidth=2;x.strokeRect(bx,by,w,h)};
 const cr=(a,b)=>{OB.push({x:a,y:b,w:24,h:24});x.fillStyle='rgba(0,0,0,.3)';x.fillRect(a+5,b+5,24,24);x.fillStyle='#b98a50';x.fillRect(a,b,24,24);x.strokeStyle='#6a4520';x.lineWidth=2;x.strokeRect(a+1,b+1,22,22);x.beginPath();x.moveTo(a+2,b+2);x.lineTo(a+22,b+22);x.moveTo(a+22,b+2);x.lineTo(a+2,b+22);x.stroke()};
 const ov=(a,b,w,h,m)=>OB.some(o=>a<o.x+o.w+m&&a+w>o.x-m&&b<o.y+o.h+m&&b+h>o.y-m);
@@ -1201,7 +1219,7 @@ for(let i=0;i<Math.ceil(p[4]*1.5);i++){const w=(70+rnd()*70)*1.12,h=(60+rnd()*60
 for(let i=0;i<21&&OB.length<650;i++){const a=rnd()*7,d=rnd()*R0*.85,cx_=p[1]+Math.cos(a)*d,cy_=p[2]+Math.sin(a)*d;if(!ov(cx_,cy_,24,24,14)&&i<6)cr(cx_,cy_)}
 x.font='bold 28px "Arial Black",Impact,sans-serif';x.textAlign='center';x.lineWidth=6;x.lineJoin='round';x.strokeStyle='rgba(0,0,0,.75)';const ly=p[2]-R0-12;x.strokeText(p[0].toUpperCase(),p[1],ly);x.fillStyle='#fff';x.fillText(p[0].toUpperCase(),p[1],ly)}
 for(let i=0;i<45;i++){const[rx,ry]=rp(IR*.92);if(POI.some(p=>Math.hypot(p[1]-rx,p[2]-ry)<230)||ov(rx,ry,34,30,0))continue;OB.push({x:rx,y:ry,w:34,h:30});x.fillStyle='rgba(0,0,0,.3)';x.beginPath();x.ellipse(rx+21,ry+22,20,16,0,0,7);x.fill();x.fillStyle='#6b727d';x.beginPath();x.ellipse(rx+17,ry+15,19,16,0,0,7);x.fill();x.fillStyle='#8c949f';x.beginPath();x.ellipse(rx+14,ry+11,12,9,0,0,7);x.fill();x.strokeStyle='#40454d';x.lineWidth=2;x.beginPath();x.ellipse(rx+17,ry+15,19,16,0,0,7);x.stroke()}
-for(let i=0;i<430;i++){const[tx,ty]=rp(IR-20);if(POI.some(p=>Math.hypot(p[1]-tx,p[2]-ty)<(p[4]>7?300:225)))continue;const k=rnd()<.5;x.fillStyle='rgba(0,0,0,.25)';x.beginPath();x.ellipse(tx+7,ty+9,21,17,0,0,7);x.fill();x.fillStyle=k?'#1b4a24':'#245a2a';x.beginPath();x.arc(tx,ty,21,0,7);x.fill();x.fillStyle=k?'#2b6b33':'#34763a';x.beginPath();x.arc(tx-2,ty-2,16,0,7);x.fill();x.fillStyle=k?'#3e8a44':'#4a9a4a';x.beginPath();x.arc(tx-6,ty-6,8,0,7);x.fill()}
+for(let i=0;i<430;i++){const[tx,ty]=rp(IR-20);if(POI.some(p=>Math.hypot(p[1]-tx,p[2]-ty)<(p[4]>7?300:225)))continue;const k=rnd()<.5;x.fillStyle='rgba(0,0,0,.22)';x.beginPath();x.ellipse(tx+5,ty+8,18,8,0,0,7);x.fill();x.fillStyle=k?'#315b35':'#3d6636';x.beginPath();x.ellipse(tx,ty,18,10,0,0,7);x.fill();x.fillStyle=k?'#4b8546':'#57904a';x.beginPath();x.ellipse(tx-6,ty-3,11,7,-.2,0,7);x.fill();x.fillStyle=k?'#5e9b55':'#6ba45a';x.beginPath();x.ellipse(tx+5,ty-4,9,6,.25,0,7);x.fill();x.strokeStyle='rgba(198,231,155,.36)';x.lineWidth=1.2;x.beginPath();x.moveTo(tx-7,ty-5);x.lineTo(tx-10,ty-9);x.moveTo(tx+2,ty-5);x.lineTo(tx+4,ty-9);x.stroke()}
 // Season 1: Pulse contamination across the island.
 x.save();x.globalCompositeOperation='lighter';x.lineCap='round';
 const pulseLinks=[[0,5],[5,1],[5,2],[1,4],[2,4],[3,4],[0,3],[0,2]];
@@ -1645,16 +1663,25 @@ $('mu').onclick=()=>{sndOn=!sndOn;S.settings.sound=sndOn;save();ui()};
 $('pf').onclick=login;$('pf').addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();login()}});
 // ---------- BOOT ----------
 (async()=>{const bar=$('bootBar'),caption=$('bootCaption'),t0=performance.now();let pr=0;const iv=setInterval(()=>{pr=Math.min(90,pr+3);bar.style.width=pr+'%';caption.textContent=pr<30?'Loading the island':pr<65?'Preparing combat':'Almost ready'},60);
-try{if(CG&&typeof CG.init==='function'){sdkReady=await Promise.race([CG.init().then(()=>true),new Promise(resolve=>setTimeout(()=>resolve(false),5000))])}}catch(e){sdkReady=false}try{if(sdkReady&&CG&&CG.game&&typeof CG.game.loadingStart==='function')CG.game.loadingStart()}catch(e){}
+try{if(CG&&typeof CG.init==='function'){sdkReady=await Promise.race([CG.init().then(()=>true),new Promise(resolve=>setTimeout(()=>resolve(false),5000))])}}catch(e){sdkReady=false}if(sdkReady&&CG&&CG.game){try{cgAudioMuted=!!(CG.game.settings&&CG.game.settings.muteAudio);if(typeof CG.game.addSettingsChangeListener==='function')CG.game.addSettingsChangeListener(function(next){cgAudioMuted=!!(next&&next.muteAudio)})}catch(e){console.warn("CrazyGames settings listener unavailable",e)}}try{if(sdkReady&&CG&&CG.game&&typeof CG.game.loadingStart==='function')CG.game.loadingStart()}catch(e){}
 loadS();
 S.own=SK.map((_,i)=>i==0||S.own[i]?1:0);S.oh=HT.map((_,i)=>i==0||S.oh[i]?1:0);S.ot=TR.map((_,i)=>i==0||S.ot[i]?1:0);setInterval(()=>{if(!document.hidden){S.play++;if(S.play%20==0)save();ui()}},1000);try{if(sdkReady&&CG&&CG.user&&typeof CG.user.getUser==='function'){user=await CG.user.getUser();if(typeof CG.user.addAuthListener==='function')CG.user.addAuthListener(u=>{user=u||null;loadS();save();ui()})}}catch(e){}
 buildMap();buildBoxArena();while(performance.now()-t0<2400)await new Promise(r=>setTimeout(r,50));clearInterval(iv);bar.style.width='100%';caption.textContent='Ready to drop';await new Promise(r=>setTimeout(r,250));
-try{if(sdkReady&&CG&&CG.game&&typeof CG.game.loadingStop==='function')CG.game.loadingStop()}catch(e){}$('boot').classList.add('done');$('mn').classList.remove('h');ui();requestAnimationFrame(mloop)})();
+try{if(sdkReady&&CG&&CG.game&&typeof CG.game.loadingStop==='function')CG.game.loadingStop()}catch(e){}$('boot').classList.add('done');$('mn').classList.remove('h');ui();if(sdkReady)mpInitCrazyGames();requestAnimationFrame(mloop)})();
 
 /* ---------- ONLINE MULTIPLAYER ---------- */
 /* Replace this URL with the workers.dev URL printed by: npx wrangler deploy */
 const MP_WORKER_URL = "https://pixelroyal-multiplayer.pixelroyal-21513.workers.dev";
 let mpSocket = null, mpClientId = "", mpOpponentId = "", mpRoomCode = "", mpMode = "br", mpRemote = null, mpOnline = false, mpPrivate = false, mpHudStatus = null, mpLastStatePayload = "", mpLastStateAt = 0;
+
+function mpDisplayName(){const raw=user&&user.username?user.username:(IS_DESKTOP_BUILD?"Windows Player":"Player");return String(raw).replace(/[\u0000-\u001f\u007f]/g,"").trim().slice(0,20)||"Player"}
+let mpCrazyRoomId="",mpCrazyJoinListener=null;
+function mpSetCrazyRoom(joinable){if(IS_DESKTOP_BUILD||!sdkReady||!CG||!CG.game||!mpRoomCode||typeof CG.game.updateRoom!=="function")return;try{CG.game.updateRoom({roomId:mpRoomCode,isJoinable:joinable!==false,inviteParams:{room:mpRoomCode}});mpCrazyRoomId=mpRoomCode}catch(error){console.warn("CrazyGames room update failed:",error)}}
+function mpLeaveCrazyRoom(){if(!mpCrazyRoomId)return;try{if(sdkReady&&CG&&CG.game&&typeof CG.game.leftRoom==="function")CG.game.leftRoom()}catch(_){}mpCrazyRoomId=""}
+function mpInviteRoomCode(params){const game=sdkReady&&CG&&CG.game;let value=params&&(params.room||params.roomCode||params.roomId);if(!value&&game&&typeof game.getInviteParam==="function"){try{value=game.getInviteParam("room")}catch(_){}}return String(value||"").trim().toUpperCase().replace(/[^A-Z0-9]/g,"").slice(0,6)}
+function mpHandleCrazyJoin(params){const code=mpInviteRoomCode(params);if(!code||code.length!==6)return;if(G&&G.run){G.run=0;G.over=1;G.paused=0;gp(0);menu()}joinPrivateRoom(code)}
+function mpInitCrazyGames(){if(!sdkReady||!CG||!CG.game)return;const game=CG.game;if(!mpCrazyJoinListener&&typeof game.addJoinRoomListener==="function"){mpCrazyJoinListener=params=>mpHandleCrazyJoin(params);try{game.addJoinRoomListener(mpCrazyJoinListener)}catch(error){console.warn("CrazyGames join listener failed:",error)}}const inviteCode=mpInviteRoomCode(game.inviteParams||null);if(inviteCode.length===6)setTimeout(()=>mpHandleCrazyJoin({room:inviteCode}),180);else if(game.isInstantMultiplayer===true)setTimeout(()=>createPrivateRoom(),180)}
+async function mpCopyCrazyInviteLink(){if(!mpRoomCode)return;if(IS_DESKTOP_BUILD||!sdkReady||!CG||!CG.game||typeof CG.game.inviteLink!=="function"){mpSetLobbyStatus("CrazyGames invite links are available in the browser build. Share the six-character room code with Windows players.");return}try{const link=await CG.game.inviteLink({room:mpRoomCode});if(typeof link!=="string"||!link)throw new Error("No invite link");await navigator.clipboard.writeText(link);mpSetLobbyStatus("CrazyGames invite link copied.")}catch(_){mpSetLobbyStatus("Could not copy the invite link. Share room code "+mpRoomCode+" instead.")}}
 function mpSetStatus(message) {
   const quietSearch = /searching for (a player|an opponent)|bots (are|remain) active/i.test(String(message||''));
   const menuStatus = $("mpStatus");
@@ -1682,6 +1709,7 @@ function mpSend(packet) {
   }
 }
 function mpDisconnect() {
+  mpLeaveCrazyRoom();
   if (mpSocket) {
     try { mpSocket.close(); } catch (_) {}
   }
@@ -1728,8 +1756,8 @@ async function createPrivateRoom() {
     mpSetStatus("Room creation failed: " + (error.message || "check Worker URL and deployment."));
   }
 }
-async function joinPrivateRoom() {
-  const roomCode = ($("mpRoomCode").value || "").trim().toUpperCase().replace(/[^A-Z0-9]/g, "");
+async function joinPrivateRoom(inviteCode) {
+  const roomCode = String(inviteCode || $("mpRoomCode").value || "").trim().toUpperCase().replace(/[^A-Z0-9]/g, "");
   if (roomCode.length !== 6) { mpSetStatus("Enter the 6-character room code first."); return; }
   if (MP_WORKER_URL.includes("YOUR-WORKER-SUBDOMAIN")) {
     mpSetStatus("Multiplayer server is not configured yet.");
@@ -1845,6 +1873,7 @@ function mpConnect(params) {
   try {
     url = mpUrl("/ws");
     Object.keys(params).forEach(function (key) { url.searchParams.set(key, params[key]); });
+    url.searchParams.set("name", mpDisplayName());
     mpSocket = new WebSocket(url.toString());
   } catch (error) {
     mpSetStatus("Could not connect to multiplayer server. Check MP_WORKER_URL.");
@@ -1864,27 +1893,29 @@ function mpConnect(params) {
       mpClientId = packet.playerId || mpClientId;
       mpOpponentId = packet.opponentId || mpOpponentId;
       mpRoomCode = packet.room || "";
-      mpEnsureRemote(packet.opponentId, "Player");
+      mpEnsureRemote(packet.opponentId, packet.opponentName || "Player");
+      mpSetCrazyRoom(true);
       mpSetStatus("Opponent found · live multiplayer connected.");
     } else if (packet.type === "room_joined") {
       mpClientId = packet.playerId || mpClientId;
       mpOpponentId = (packet.players || []).map(function(p){return p.playerId;}).find(function(id){return id && id !== mpClientId;}) || mpOpponentId;
       mpRoomCode = packet.room || mpRoomCode;
+      mpSetCrazyRoom(true);
       mpLobbyHost = !!packet.isHost;
       mpMode = packet.mode === "box" ? "box" : "br";
-      mpLobbyPlayers = (packet.players || []).filter(function(p){return p.playerId && p.playerId !== mpClientId;}).map(function(p){return {id:p.playerId,name:"Player"};});
+      mpLobbyPlayers = (packet.players || []).filter(function(p){return p.playerId && p.playerId !== mpClientId;}).map(function(p){return {id:p.playerId,name:p.name || "Player"};});
       mpShowLobby(mpLobbyHost);
       mpRenderLobbyPlayers();
       mpSetLobbyStatus(mpLobbyHost ? "Room created. Share the code and wait for your friend." : "Joined successfully. Waiting for the host to start.");
     } else if (packet.type === "player_joined") {
       if (packet.playerId && packet.playerId !== mpClientId) {
-        if (!mpLobbyPlayers.some(function(p){return p.id===packet.playerId;})) mpLobbyPlayers.push({id:packet.playerId,name:"Player"});
+        if (!mpLobbyPlayers.some(function(p){return p.id===packet.playerId;})) mpLobbyPlayers.push({id:packet.playerId,name:packet.name || "Player"});
         mpRenderLobbyPlayers();
-        if (G && G.run && mpEnsureRemote) mpEnsureRemote(packet.playerId, "Player");
+        if (G && G.run && mpEnsureRemote) mpEnsureRemote(packet.playerId, packet.name || "Player");
       }
       mpSetLobbyStatus("A player joined the room.");
     } else if (packet.type === "lobby_update") {
-      mpLobbyPlayers = (packet.players || []).filter(function(p){return p.playerId && p.playerId !== mpClientId;}).map(function(p){return {id:p.playerId,name:"Player"};});
+      mpLobbyPlayers = (packet.players || []).filter(function(p){return p.playerId && p.playerId !== mpClientId;}).map(function(p){return {id:p.playerId,name:p.name || "Player"};});
       mpRenderLobbyPlayers();
       mpSetLobbyStatus(mpLobbyPlayers.length ? "Your friend is here. Ready when you are." : "Waiting for your friend…");
     } else if (packet.type === "host_changed") {
@@ -1911,10 +1942,10 @@ function mpConnect(params) {
         mpSetStatus("Opponent disconnected · a bot has taken over.");
       }
     } else if (packet.type === "state") {
-      if (packet.from && packet.from !== mpClientId) mpApplyRemoteState(packet.from, packet.state);
+      if (packet.from && packet.from !== mpClientId) mpApplyRemoteState(packet.from, packet.state, packet.name);
     } else if (packet.type === "shots") {
       if (packet.from && packet.from !== mpClientId && G && G.run && Array.isArray(packet.shots)) {
-        const remote = mpEnsureRemote(packet.from, "Player");
+        const remote = mpEnsureRemote(packet.from, packet.name || "Player");
         packet.shots.slice(0, 12).forEach(function (shot) {
           if (!shot || !Number.isFinite(shot.x) || !Number.isFinite(shot.y) || !Number.isFinite(shot.vx) || !Number.isFinite(shot.vy)) return;
           G.bl.push({ x: shot.x, y: shot.y, vx: shot.vx, vy: shot.vy, l: Math.max(0.01, Math.min(3, shot.l || 0.5)), d: Math.max(0, Math.min(150, shot.d || 0)), o: remote, c: shot.c || "#fff", knock: Math.max(0, Math.min(150, shot.knock || 0)) });
@@ -1962,9 +1993,9 @@ function mpEnsureRemote(id, name) {
   G.alive = G.P.filter(function (p) { return p.alive; }).length;
   return remote;
 }
-function mpApplyRemoteState(id, state) {
+function mpApplyRemoteState(id, state, name) {
   if (!state || !G || !G.run) return;
-  const remote = mpEnsureRemote(id, "Player");
+  const remote = mpEnsureRemote(id, name || "Player");
   if (!remote) return;
   if (state.alive === 0 || state.alive === false) {
     if (remote.alive) kill(remote, null);
