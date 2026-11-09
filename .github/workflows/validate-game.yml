@@ -18,3 +18,26 @@ jobs:
           node-version: 22
       - name: Validate game scripts
         run: node scripts/validate-game.mjs
+
+  windows-portable:
+    runs-on: windows-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install desktop dependencies
+        run: npm install --no-audit --no-fund
+        working-directory: desktop
+      - name: Build portable Windows client
+        run: npm run build:portable
+        working-directory: desktop
+      - name: Upload portable EXE
+        uses: actions/upload-artifact@v4
+        with:
+          name: PixelRoyale-Portable-1.0.5
+          path: desktop/dist/PixelRoyale-Portable-1.0.5.exe
+          if-no-files-found: error
+          retention-days: 14
