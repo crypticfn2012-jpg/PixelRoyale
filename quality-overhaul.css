@@ -184,3 +184,8 @@ canvas#g{
 @media(prefers-reduced-motion:reduce){
   #mn *,#hud *{scroll-behavior:auto!important;transition-duration:0s!important;animation-duration:0s!important}
 }
+
+@media(max-width:820px){
+  #mn{padding-top:calc(62px + var(--pr-safe-top))}
+  #pf,#top{max-width:min(190px,calc(50vw - 18px))}
+}
