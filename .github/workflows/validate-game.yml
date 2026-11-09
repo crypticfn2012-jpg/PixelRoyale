@@ -1,0 +1,20 @@
+name: PixelRoyale validation
+
+on:
+  push:
+    branches: [main, quality-overhaul-2026-11]
+  pull_request:
+    branches: [main]
+
+jobs:
+  javascript-syntax:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate game scripts
+        run: node scripts/validate-game.mjs
