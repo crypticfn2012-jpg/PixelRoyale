@@ -24,7 +24,7 @@ S.own=SK.map((_,i)=>i===0||!!(S.own&&S.own[i])?1:0);
 S.oh=HT.map((_,i)=>i===0||!!(S.oh&&S.oh[i])?1:0);
 S.ot=TR.map((_,i)=>i===0||!!(S.ot&&S.ot[i])?1:0);
 S.ow=WL.map((_,i)=>i===0||!!(S.ow&&S.ow[i])?1:0);
-if(typeof save==="function")save();
+/* Existing progress is left untouched; the expanded arrays are included on the next normal save. */
 
 /* Give the five new hats their own readable silhouettes at the actual player scale. */
 const originalHatd=hatd;
@@ -74,8 +74,48 @@ function polishMap(){
     x.lineWidth=1.2;
     x.strokeRect(o.x+3,o.y+3,Math.max(1,o.w-6),Math.max(1,o.h-6));
   }
-  /* Walkable ground gets low-contrast grass and pebble clusters; no new blocked areas are introduced. */
+  /* Add small, mode-readable POI landmarks. Their footprints are added to OB, so they block movement exactly where they are drawn. */
   const clear=(px,py,r)=>!OB.some(o=>px+r>o.x&&px-r<o.x+o.w&&py+r>o.y&&py-r<o.y+o.h);
+  function placeLandmark(cx,cy,w,h,kind){
+    for(let ring=0;ring<5;ring++)for(let n=0;n<12;n++){
+      const a=n*Math.PI/6+ring*.19,d=ring*34,x0=cx+Math.cos(a)*d-w/2,y0=cy+Math.sin(a)*d-h/2;
+      if(Math.hypot(x0+w/2-C,y0+h/2-C)>IR-90||!clear(x0+w/2,y0+h/2,Math.max(w,h)*.62))continue;
+      OB.push({x:x0,y:y0,w,h,kind:"landmark"});
+      x.save();x.translate(x0,y0);
+      x.fillStyle="rgba(0,0,0,.32)";x.fillRect(7,8,w,h);
+      x.fillStyle="#172438";x.strokeStyle=kind==="relay"?"#57eaff":kind==="radar"?"#9bc9e8":kind==="dock"?"#d18b58":kind==="forest"?"#9bcf88":"#e8c77f";x.lineWidth=4;
+      x.fillRect(0,0,w,h);x.strokeRect(1,1,w-2,h-2);
+      if(kind==="relay"){
+        x.fillStyle="#29465a";x.fillRect(8,8,w-16,h-16);x.strokeStyle="#65eaff";x.lineWidth=2;
+        x.beginPath();x.moveTo(12,h-10);x.lineTo(w/2,9);x.lineTo(w-12,h-10);x.moveTo(12,h-10);x.lineTo(w-12,h-10);x.stroke();
+        x.beginPath();x.moveTo(w/2,9);x.lineTo(w/2,-10);x.stroke();x.fillStyle="#ff5bd2";x.beginPath();x.arc(w/2,-13,4,0,Math.PI*2);x.fill();
+      }else if(kind==="radar"){
+        x.fillStyle="#263e55";x.fillRect(8,8,w-16,h-16);x.strokeStyle="#a5dfff";x.lineWidth=3;
+        x.beginPath();x.ellipse(w/2,h/2,w*.29,h*.29,-.45,Math.PI,Math.PI*2);x.stroke();
+        x.beginPath();x.moveTo(w/2,h/2);x.lineTo(w*.73,h*.24);x.stroke();
+        x.fillStyle="#54eaff";x.beginPath();x.arc(w/2,h/2,4,0,Math.PI*2);x.fill();
+      }else if(kind==="dock"){
+        x.fillStyle="#8b533d";x.fillRect(6,6,w-12,h-12);x.strokeStyle="#e0a06b";x.lineWidth=2;
+        for(let yy=12;yy<h-8;yy+=12){x.beginPath();x.moveTo(7,yy);x.lineTo(w-7,yy);x.stroke()}
+        x.fillStyle="#26394b";x.fillRect(w*.48,6,w*.08,h-12);x.fillStyle="#f2bf82";x.fillRect(12,10,8,5);
+      }else if(kind==="forest"){
+        x.fillStyle="#314b37";x.fillRect(7,7,w-14,h-14);x.fillStyle="#b78c5b";
+        x.beginPath();x.moveTo(w/2,7);x.lineTo(w-7,h*.42);x.lineTo(w-7,h-7);x.lineTo(7,h-7);x.lineTo(7,h*.42);x.closePath();x.fill();
+        x.fillStyle="#344f63";x.fillRect(w*.39,h*.5,w*.22,h*.5);x.fillStyle="#d8e5b5";x.fillRect(12,13,8,7);
+      }else{
+        x.fillStyle="#4b5660";x.fillRect(w*.43,5,w*.14,h-10);x.strokeStyle="#f5d28b";x.lineWidth=3;
+        x.beginPath();x.moveTo(w/2,h*.35);x.lineTo(w*.16,h*.12);x.moveTo(w/2,h*.35);x.lineTo(w*.82,h*.12);x.moveTo(w/2,h*.35);x.lineTo(w*.5,h*.02);x.stroke();
+        x.fillStyle="#f4d48c";x.beginPath();x.arc(w/2,h*.35,5,0,Math.PI*2);x.fill();
+      }
+      x.restore();return;
+    }
+  }
+  placeLandmark(POI[5][1],POI[5][2],58,58,"relay");
+  placeLandmark(POI[2][1],POI[2][2],68,58,"radar");
+  placeLandmark(POI[3][1],POI[3][2],82,54,"dock");
+  placeLandmark(POI[1][1],POI[1][2],62,48,"forest");
+  placeLandmark(POI[4][1],POI[4][2],54,68,"tower");
+  /* Walkable ground gets low-contrast grass and pebble clusters; no new blocked areas are introduced. */
   for(let i=0;i<980;i++){
     const a=rnd()*Math.PI*2,d=Math.sqrt(rnd())*(IR-35),px=C+Math.cos(a)*d,py=C+Math.sin(a)*d;
     if(!clear(px,py,14)||POI.some(p=>Math.hypot(p[1]-px,p[2]-py)<155))continue;
