@@ -1,0 +1,186 @@
+/* PixelRoyale responsive and readability pass.
+   Layout is anchored to the actual iframe viewport, not a fixed desktop mockup. */
+:root{
+  --pr-safe-top:env(safe-area-inset-top,0px);
+  --pr-safe-right:env(safe-area-inset-right,0px);
+  --pr-safe-bottom:env(safe-area-inset-bottom,0px);
+  --pr-safe-left:env(safe-area-inset-left,0px);
+}
+html,body{
+  width:100%;
+  height:100%;
+  min-width:0;
+  min-height:0;
+  overflow:hidden;
+}
+canvas#g{
+  position:fixed;
+  inset:0;
+  display:block;
+  width:100%;
+  height:100%;
+  touch-action:none;
+}
+#mn{
+  min-width:0;
+  min-height:100vh;
+  min-height:100dvh;
+  max-height:100dvh;
+  overflow-x:hidden;
+  overflow-y:auto;
+  overscroll-behavior:contain;
+  scrollbar-width:thin;
+  padding:
+    max(14px,var(--pr-safe-top))
+    max(12px,var(--pr-safe-right))
+    max(18px,var(--pr-safe-bottom))
+    max(12px,var(--pr-safe-left));
+}
+#mn:before{
+  width:min(560px,calc(100vw - 24px - var(--pr-safe-left) - var(--pr-safe-right)));
+  height:min(680px,calc(100dvh - 20px - var(--pr-safe-top) - var(--pr-safe-bottom)));
+  pointer-events:none;
+}
+#mn #gameLogo{
+  width:clamp(190px,30vw,330px);
+  max-width:82vw;
+  max-height:24dvh;
+  height:auto;
+  object-fit:contain;
+}
+#mn #modeSelect{
+  width:min(390px,calc(100vw - 30px - var(--pr-safe-left) - var(--pr-safe-right)));
+  max-width:100%;
+}
+#mn .row{
+  width:min(520px,calc(100vw - 30px));
+  max-width:100%;
+  justify-content:center;
+}
+#mn .menu-nav{min-width:0}
+#pf{
+  position:fixed;
+  z-index:25;
+  top:calc(var(--pr-safe-top) + 12px);
+  left:calc(var(--pr-safe-left) + 12px);
+  right:auto;
+  max-width:min(250px,calc((100vw - 560px)/2 - 18px));
+  min-width:0;
+  overflow:hidden;
+}
+#pf>div{min-width:0}
+#pf b,#pf small{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#top{
+  position:fixed;
+  z-index:25;
+  top:calc(var(--pr-safe-top) + 12px);
+  left:auto;
+  right:calc(var(--pr-safe-right) + 12px);
+  max-width:min(250px,calc((100vw - 560px)/2 - 18px));
+  min-width:0;
+  justify-content:flex-end;
+}
+#cn{white-space:nowrap}
+#hud{
+  position:fixed;
+  inset:0;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  pointer-events:none;
+}
+#mm{
+  width:clamp(82px,13vw,124px);
+  height:clamp(82px,13vw,124px);
+  max-width:28vw;
+  max-height:28vw;
+}
+#tl{top:calc(10px + var(--pr-safe-top));left:calc(10px + var(--pr-safe-left))}
+#zt{top:calc(10px + var(--pr-safe-top));max-width:min(48vw,520px);overflow:hidden;text-overflow:ellipsis}
+#feed{max-width:min(32vw,320px);max-height:24vh;overflow:hidden}
+#bars{
+  left:calc(12px + var(--pr-safe-left));
+  bottom:calc(12px + var(--pr-safe-bottom));
+  width:min(270px,42vw);
+}
+#wp{
+  left:50%;
+  bottom:calc(12px + var(--pr-safe-bottom));
+  width:max-content;
+  max-width:calc(100vw - 16px - var(--pr-safe-left) - var(--pr-safe-right));
+  justify-content:center;
+  flex-wrap:wrap;
+}
+#pa{
+  top:calc(10px + var(--pr-safe-top));
+  right:calc(10px + var(--pr-safe-right));
+}
+#tip{max-width:calc(100vw - 24px);white-space:normal;text-align:center}
+#mpHudStatus{top:calc(48px + var(--pr-safe-top))}
+#pulseTrailer{width:100%;height:100%;height:100dvh}
+#ogModeLayer,#ogModeLayer iframe{width:100%;height:100%;height:100dvh}
+@media(max-width:900px){
+  #pf{max-width:calc(50vw - 20px);padding:6px 8px;gap:6px}
+  #pf #av{width:28px;height:28px}
+  #pf small{display:none}
+  #loginBadge{font-size:8px;padding:4px 5px}
+  #top{max-width:calc(50vw - 20px);gap:5px}
+  #cn{padding:6px 8px;font-size:12px}
+  #top .b{min-width:0;padding:7px 8px;font-size:9px}
+}
+@media(max-width:700px){
+  #mn{
+    justify-content:flex-start;
+    gap:9px;
+    padding-top:calc(68px + var(--pr-safe-top));
+    padding-bottom:calc(16px + var(--pr-safe-bottom));
+  }
+  #mn:before{
+    width:calc(100vw - 16px - var(--pr-safe-left) - var(--pr-safe-right));
+    height:calc(100dvh - 16px - var(--pr-safe-top) - var(--pr-safe-bottom));
+  }
+  #mn #gameLogo{width:clamp(160px,42vw,245px);max-height:19dvh}
+  #mn #pvm{width:clamp(52px,14vw,88px);height:auto}
+  #mn #modeSelect{width:min(390px,100%);gap:7px}
+  #mn #modePicker{gap:7px}
+  #mn #modePicker .mode-option{min-width:0;padding:8px}
+  #mn #modePicker .mode-option img{height:clamp(44px,10vh,76px)}
+  #mn .row{gap:6px;width:100%}
+  #mn .row .b{min-width:0;flex:1 1 0;padding:8px 6px;font-size:10px}
+  #pf{top:calc(8px + var(--pr-safe-top));left:calc(8px + var(--pr-safe-left));max-width:calc(50vw - 20px)}
+  #top{top:calc(8px + var(--pr-safe-top));right:calc(8px + var(--pr-safe-right));max-width:calc(50vw - 20px)}
+  #mm{top:calc(58px + var(--pr-safe-top));left:calc(8px + var(--pr-safe-left))}
+  #zt{top:calc(8px + var(--pr-safe-top));left:50%;max-width:calc(100vw - 170px)}
+  #bars{left:calc(8px + var(--pr-safe-left));bottom:calc(70px + var(--pr-safe-bottom));width:min(205px,48vw)}
+  #wp{left:calc(8px + var(--pr-safe-left));right:calc(8px + var(--pr-safe-right));width:auto;max-width:none;bottom:calc(8px + var(--pr-safe-bottom));gap:4px;flex-wrap:nowrap}
+  #wp .sl{min-width:0;flex:1 1 0;max-width:110px;padding:5px 3px}
+  #feed{top:calc(50px + var(--pr-safe-top));right:8px;max-width:42vw}
+  #tip{bottom:calc(103px + var(--pr-safe-bottom))}
+}
+@media(max-width:420px){
+  #pf #av{display:none}
+  #pf{padding:5px 7px}
+  #pf b{font-size:10px}
+  #loginBadge{display:none}
+  #cn{font-size:10px;padding:5px 6px}
+  #top .b{font-size:8px;padding:6px}
+  #mn #modePicker #optionOg{grid-template-columns:52px minmax(0,1fr) auto;gap:4px 6px}
+  #mn #modePicker #optionOg img{height:36px;max-height:36px}
+  #wp .sl span{font-size:8px}
+  #wp .sl b{font-size:9px}
+}
+@media(max-height:520px) and (min-width:600px){
+  #mn{padding-top:calc(48px + var(--pr-safe-top));gap:5px}
+  #mn #gameLogo{height:clamp(34px,8vh,48px);width:min(245px,32vw);max-height:9vh}
+  #mn #pvm{display:none}
+  #mn #modeSelect{width:min(520px,72vw);gap:5px}
+  #mn #modePicker .mode-option{padding:5px 7px;gap:3px}
+  #mn #modePicker .mode-option img{height:clamp(34px,8vh,46px)}
+  #mn #modeSelect .selected-mode{min-height:42px;padding:6px 10px}
+  #mn .mp-actions{gap:4px}
+  #mn .row .b{padding:6px 5px}
+  #mn .hint{font-size:8px;line-height:1.15}
+}
+@media(prefers-reduced-motion:reduce){
+  #mn *,#hud *{scroll-behavior:auto!important;transition-duration:0s!important;animation-duration:0s!important}
+}
