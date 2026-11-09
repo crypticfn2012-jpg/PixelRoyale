@@ -82,7 +82,7 @@ function loadGame() {
 
 function createWindow() {
   win = new BrowserWindow({
-    width: 1440, height: 900, minWidth: 960, minHeight: 600,
+    width: 1440, height: 900, minWidth: 800, minHeight: 450,
     show: false, backgroundColor: "#101a33", title: "PixelRoyale",
     icon: APP_ICON, autoHideMenuBar: true,
     webPreferences: {
