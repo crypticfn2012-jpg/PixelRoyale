@@ -1,0 +1,54 @@
+name: Publish PixelRoyale 1.0.5 Release
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download the verified Windows portable build
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const artifactId = 13715589574;
+            const { data: artifact } = await github.rest.actions.getArtifact({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              artifact_id: artifactId
+            });
+            if (artifact.expired) {
+              throw new Error("The 1.0.5 build artifact has expired. A new Windows build is required.");
+            }
+            const { data: zip } = await github.rest.actions.downloadArtifact({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              artifact_id: artifactId,
+              archive_format: "zip"
+            });
+            const release = await github.rest.repos.createRelease({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              tag_name: "v1.0.5",
+              target_commitish: "quality-overhaul-2026-11",
+              name: "PixelRoyale 1.0.5",
+              body: "Windows portable build for PixelRoyale 1.0.5. Download the ZIP, extract it, then run PixelRoyale-Portable-1.0.5.exe.\n\nThe build passed JavaScript syntax validation and Windows portable packaging in GitHub Actions. In-game runtime and cross-platform multiplayer testing are still outstanding.",
+              draft: false,
+              prerelease: false
+            });
+            await github.rest.repos.uploadReleaseAsset({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              release_id: release.data.id,
+              name: "PixelRoyale-Portable-1.0.5.zip",
+              data: Buffer.from(zip),
+              headers: {
+                "content-type": "application/zip",
+                "content-length": Buffer.byteLength(zip)
+              }
+            });
+            core.notice("Published PixelRoyale 1.0.5 at " + release.data.html_url);
